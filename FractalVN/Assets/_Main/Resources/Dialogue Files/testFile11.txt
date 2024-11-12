@@ -1,0 +1,29 @@
+enter FractalDimension471 @你好，欢迎来访@
+FractalDimension471@我是你今天的分析师，你可以叫我“a”@
+FractalDimension471.Move(/x 0)
+@来访者，你的名字是？@
+FractalDimension471.Move(/x 0.5)
+input@自称是？@
+$Aurora.MainCharacterName = <input>
+FractalDimension471@你好“<input>”，{a}真是一个好名字呢@
+@那么，让我们开始分析......{c}与其说是分析，不如称作“学术交流”.....{a}呵呵~@
+@让我们先来分析以下诗歌吧@
+FractalDimension471.hide()
+choice@选择想要查看的诗歌@
+{
+	-《天空、海洋、大地，世界》
+		Load(/f Lyrics01 /eq true)
+		SetLayerMedia(/p BackGround /m "Above Clouds")
+		Narrator@《天空、海洋、大地，世界》@
+	-《当我们凝视天空》
+		Load(/f Lyrics02 /eq true)
+		SetLayerMedia(/p BackGround /m "Above Clouds")
+		Narrator@《当我们凝视天空》@
+	- 测试变量注入
+		Load(/f TestVar /eq true)
+	+ 测试倒计时默认选项(不可见)
+		Narrator@触发默认选项@
+}
+Narrator@TestFile11 end.@
+
+

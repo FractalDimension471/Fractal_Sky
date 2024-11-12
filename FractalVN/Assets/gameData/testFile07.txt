@@ -1,0 +1,7 @@
+print_sp("This is a message from dialogue flie.")
+Aurora @Move Left@ moveCharDemo(left)
+@Move Right@ moveCharDemo(right)
+Bravo @Move left, then move right.@ [wait]moveCharDemo(left),moveCharDemo(right)
+Aurora @My logue (My thought)@
+Bravo @command(My thought)@
+Cave @(Test thought)@

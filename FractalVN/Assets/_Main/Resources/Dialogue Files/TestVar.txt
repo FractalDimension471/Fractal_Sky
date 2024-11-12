@@ -1,0 +1,62 @@
+SetLayerMedia(/p BackGround /m "Above Clouds")
+PlayMusic(/m "Summer Sky")
+$tmp.money = 0
+$tmp.name = "Sincerely $Aurora.MainCharacterName"
+FractalDimension471.Show()
+FractalDimension471@很好，数据显示你现在拥有$tmp.money元，{a}本次分析收费50元,$tmp.name@
+$tmp.money -= 50
+@现在你拥有$tmp.money元，{c}似乎已经欠费了呢~{a}呵呵@
+@要不试试充值？{a}免 费 的 哦@
+choice@充值金额（当前金额：$tmp.money）@
+{
+	-50元
+		$tmp.money += 50
+	-100元
+		$tmp.money += 100
+	-200元
+		$tmp.money += 200
+	-我没钱充值QAQ
+		FractalDimension471@都 说 啦，免 费 的！{c}（微笑着给了你1050元）@
+		$tmp.money += 1050
+}
+FractalDimension471@似乎充值成功了呢@
+@数据显示现在你有$tmp.money元，{a}要不去买点东西试试？@
+FractalDimension471.Hide()
+SetLayerMedia(/p BackGround /m "konbini")
+CreateCharacter("StoreKeeper as Generic")
+StoreKeeper@欢迎光临~@
+@请问你要买些什么呢？@
+Choice@选择购买的物品（当前金额：$tmp.money）@
+{
+	-樱饼：50￥
+		if($tmp.money >= 50)
+		{
+			$tmp.money -= 50
+		}
+		else
+		{
+			StoreKeeper@啊哈哈，似乎钱不够呢......@
+		}
+	-电脑配件: 100￥
+		if($tmp.money >= 100)
+		{
+			$tmp.money -= 100
+			StoreKeeper@啊，这是？@
+		}
+		else
+		{
+			StoreKeeper@啊哈哈，似乎钱不够呢......@
+		}
+	-AQUA：999￥
+		if($tmp.money >= 999)
+		{
+			$tmp.money -= 999
+		}
+		else
+		{
+			StoreKeeper@啊哈哈，似乎钱不够呢......@
+		}
+}
+StoreKeeper@欢迎下次光临~@
+FractalDimension471.Show()
+FractalDimension471@嗯嗯，买完东西了吗？{a}数据显示现在你还剩下$tmp.money元@

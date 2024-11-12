@@ -1,0 +1,4 @@
+Aurora@line01: test playing music@ playSong("bgm01" -v 1 -p 1), setMood(happy)
+Bravo@line02: test playing voice@ playVoice("v01" -v 2), setBackground(scene01 -t "space02" -s 3)
+setAccomplishment("A mp3 player" true), setCLI(Chary 0:Sad 1:Peace -s 3.14 -l true)
+shouScen(false), stopMusic(all -s 2)

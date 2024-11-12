@@ -1,0 +1,23 @@
+setlayermedia(/p background /m "Fantasy Landscape")
+enter Aoichan@This is a fantastic landscape, isn't it?@
+Aoichan@非常好景色，爱来自CN@
+Aoichan@让我们来测试一下对话框@
+Aoichan@我们来让对话框消失，然后等一秒后让它恢复@
+HideDialogueBox()
+wait(1)
+ShowDialogueBox()
+Aoichan@看样子应该起作用了@
+setlayermedia(/p background /m Nebula /l 0)
+setlayermedia(/p background /m Spaceshipinterior /l 1)
+Aoichan @Welcome to my spaceship!@
+setlayermedia(/p cinematic /m flower)
+Aoichan@What a beautiful flower!@
+ClearLayerMedia(/p cinematic /l -1 /b Hypno)
+clearlayermedia(/p background /l 1 /i true)
+Aoichan@Welcome back.@
+Aoichan@Let's play some music@
+PlayMusic(/m "S.T.A.Y" /c 0)
+Aoichan@May be a little more Sound@
+PlaySound(/s "chisa_message01")
+Aoichan@I'll add some voice@
+PlayVoice(/v "Windows ShutDown")

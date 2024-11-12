@@ -1,0 +1,4 @@
+repository "LetsGalgame01@fractaldimension471@cloud.cn"
+  path "/"
+    br "/main"
+    co "/main"

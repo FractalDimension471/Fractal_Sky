@@ -1,0 +1,24 @@
+enter Koishi @ Hello world.@
+createcharacter(Aoichan)
+createcharacter(Aurora)
+createcharacter(Kaikou)
+showcharacters(Aoichan Aurora /i true)
+[wait]Aurora.inactivate();
+Aoichan@I'll go left.@
+[wait]Aoichan.move(/x 0)
+@And then, I'll go right.@
+[wait]Aoichan.move(/x 1)
+@Finally, I'll go center.@
+[wait]Aoichan.move(/x 0.5)
+[wait]Aurora.activate();
+Aurora@I'll go center too.@
+[wait]Aurora.move(/x 0.5)
+[wait]Aoichan.setpriority(1)
+Aoichan@Now, I'm on your top.@
+[wait]Aurora.setpriority(2)
+[wait]Aurora.setcolor(/c red)
+Aurora@huh?@
+Kaikou.show()
+Kaikou@Hello everyone.@
+Kaikou.setsprite(/s fe02 /l 1)
+@It's time for fun~@

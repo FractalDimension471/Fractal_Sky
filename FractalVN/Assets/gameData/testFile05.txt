@@ -1,0 +1,3 @@
+Aurora as A at 1:0@testing conversation, line01@
+Aurora at 2:1 as A@testing conversation, line02@
+Aurora at 0 [0:Happy, 1:Sad]@testing conversation, line03@

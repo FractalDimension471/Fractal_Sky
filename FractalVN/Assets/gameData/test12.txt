@@ -1,0 +1,4 @@
+createcharacter("荣格 as Lacan")
+荣格.show()
+荣格@1919810@
+荣格.setcolor()

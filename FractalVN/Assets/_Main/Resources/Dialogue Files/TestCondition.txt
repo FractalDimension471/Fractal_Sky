@@ -1,0 +1,47 @@
+Narrator@开始测试@
+choice@选择想要查看的诗歌@
+{
+	-《天空、海洋、大地，世界》
+		Load(/f Lyrics01 /eq true)
+		SetLayerMedia(/p BackGround /m "Above Clouds")
+		Narrator@《天空、海洋、大地，世界》@
+	-《当我们凝视天空》
+		Load(/f Lyrics02 /eq true)
+		SetLayerMedia(/p BackGround /m "Above Clouds")
+		Narrator@《当我们凝视天空》@
+}
+$money = 1000
+Choice@选择购买的物品（当前金额：$money）@
+{
+	-樱饼：50￥
+		if($money >= 50)
+		{
+			$money -= 50
+			Chisa@啊，我也最喜欢这个了@
+		}
+		else
+		{
+			Chisa@啊哈哈，似乎钱不够呢......@
+		}
+	-电脑配件: 100￥
+		if($money >= 100)
+		{
+			$money -= 100
+			Chisa@啊，这是？@
+		}
+		else
+		{
+			Chisa@啊哈哈，似乎钱不够呢......@
+		}
+	-AQUA：999￥
+		if($money >= 999)
+		{
+			$money -= 999
+			Chisa@啊、快子波技术不是已经......@
+		}
+		else
+		{
+			Chisa@啊哈哈，似乎钱不够呢......{a}（AQUA?）@
+		}
+}
+Chisa@欢迎下次光临~@
