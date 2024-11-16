@@ -45,9 +45,9 @@ public class SLPage : MenuPage
             if (slotIndex < MaxSlotIndex)
             {
                 slot.Root.SetActive(true);
-                string fullSavePath = Path.Combine(SavePath, slotIndex.ToString()) + GalSaveFile.ID_DataFileType;
                 slot.FileIndex = slotIndex;
-                slot.FileSavePath = fullSavePath;
+                slot.FileSavePath = Path.Combine(SavePath, slotIndex.ToString()) + GalSaveFile.ID_DataFileType;
+                slot.ScreenShotSavePath = Path.Combine(SavePath, slotIndex.ToString()) + GalSaveFile.ID_ScreenshotFileType;
                 slot.GenerateDetails(CurrentFuction);
 }
             else

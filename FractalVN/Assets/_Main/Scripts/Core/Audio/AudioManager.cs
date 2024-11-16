@@ -7,11 +7,23 @@ public class AudioManager : MonoBehaviour
 {
     #region  Ù–‘/Property
     public static AudioManager Instance { get; private set; }
+    public static string ID_MainMixerVolume { get; } = "MainVolume";
+    public static string ID_MusicMixerVolume { get; } = "MusicVolume";
+    public static string ID_SoundMixerVolume { get; } = "SoundVolume";
+    public static string ID_VoiceMixerVolume { get; } = "VoiceVolume";
+    public static float C_MuteVloume { get; } = -80f;
 
     public Dictionary<int, AudioChannel> Channels { get; } = new();
-    public AudioMixerGroup MusicMixer { get; }
-    public AudioMixerGroup SoundMixer { get; }
-    public AudioMixerGroup VoiceMixer { get; }
+    [field:SerializeField]
+    public AudioMixerGroup MainMixer {  get; private set; }
+    [field:SerializeField]
+    public AudioMixerGroup MusicMixer { get; private set; }
+    [field: SerializeField]
+    public AudioMixerGroup SoundMixer { get; private set; }
+    [field: SerializeField]
+    public AudioMixerGroup VoiceMixer { get; private set; }
+    [field: SerializeField]
+    public AnimationCurve AudioNormalizeCurve { get; private set; }
 
     private Transform SoundRoot { get; set; }
 

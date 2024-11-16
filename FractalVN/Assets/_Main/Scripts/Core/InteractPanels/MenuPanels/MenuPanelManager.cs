@@ -81,4 +81,12 @@ public class MenuPanelManager : MonoBehaviour
         CGcontroller.Hide();
         CGcontroller.SetCanvasStatus(false);
     }
+    public void BackToTitle()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(MainMenu.ID_StartScene);
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

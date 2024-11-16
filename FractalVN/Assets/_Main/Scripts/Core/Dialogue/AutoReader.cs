@@ -28,6 +28,7 @@ namespace DIALOGUE
         [SerializeField]
         private float _ReadSpeed = 1f;
         private float Speed => _ReadSpeed;
+        public float SpeedMultiplier { get; internal set; } = 1;
 
         #endregion
         #region ·½·¨/Method
@@ -80,7 +81,7 @@ namespace DIALOGUE
                     }
                     float readingTime = Mathf.Clamp(((float)TextArchitect.Tmpro.textInfo.characterCount / C_ReadCountPerSecondFor), C_MinReadTime, C_MaxReadTime);
                     readingTime = Mathf.Clamp(readingTime - (Time.time - startTime), C_MinReadTime, C_MaxReadTime);
-                    readingTime = readingTime / Speed + C_LinePaddingTime;
+                    readingTime = readingTime / (Speed * SpeedMultiplier / 4) + C_LinePaddingTime;
                     yield return new WaitForSeconds(readingTime);
                 }
                 else

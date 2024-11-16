@@ -24,7 +24,8 @@ namespace GALGAME
         public static string FileSavePath => FilePaths.GetPath(FilePaths.RunTimePath, ID_SaveFileFolderName);
         public string FullDataFileSavePath => Path.Combine(FileSavePath, SlotIndex.ToString()) + ID_DataFileType;
         public string FullScreenshotFileSavePath => Path.Combine(FileSavePath, SlotIndex.ToString()) + ID_ScreenshotFileType;
-
+        [field: SerializeField]
+        public bool IsNewGame { get; private set; } = true;
         [field: SerializeField]
         public string TimeStamp { get; private set; } = "";
         [field: SerializeField]
@@ -43,7 +44,8 @@ namespace GALGAME
         #region ·½·¨/Method
         public void Save()
         {
-            ScreenShotTool.TakeScreenShot(GalManager.Instance.MainCamera, Screen.width, Screen.height, 0.5f, FullScreenshotFileSavePath);
+            IsNewGame = false;
+            ScreenShotTool.TakeScreenShot(GalManager.Instance.MainCamera, Screen.width, Screen.height, 1, FullScreenshotFileSavePath);
             TimeStamp = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
             ActiveState = HistoryState.Capture();
             HistoryLogs = HistoryManager.Instance.CachedStates.ToArray();

@@ -88,6 +88,7 @@
     <Compile Include="Assets\_Main\Scripts\Core\Commands\DataBase\Extension\GenericExtension.cs" />
     <Compile Include="Assets\_Main\Scripts\Test\testAudio.cs" />
     <Compile Include="Assets\_Main\Scripts\Core\LogicalLines\Types\OperatorLogic.cs" />
+    <Compile Include="Assets\_Main\Scripts\Core\GalSystem\DataContainer\GalConfigSO.cs" />
     <Compile Include="Assets\_Main\Scripts\Core\Characters\CharacterManager.cs" />
     <Compile Include="Assets\_Main\Scripts\Core\LogicalLines\Types\InputLogic.cs" />
     <Compile Include="Assets\_Main\Scripts\Test\testCharacters.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Assets\_Main\Scripts\Core\InteractPanels\FunctionPanel.cs" />
     <Compile Include="Assets\_Main\Scripts\Core\Dialogue\DialogueParser.cs" />
     <Compile Include="Assets\_Main\Scripts\Core\History\HistoryLogManager.cs" />
+    <Compile Include="Assets\_Main\Scripts\Core\GalSystem\DataContainer\ConfigData.cs" />
     <Compile Include="Assets\_Main\Scripts\Test\TestVariable.cs" />
     <Compile Include="Assets\_Main\Scripts\Core\Commands\DataBase\Extension\DatabaseExtensionExamples.cs" />
     <Compile Include="Assets\_Main\Scripts\Core\IO\FileManager.cs" />
@@ -144,6 +146,7 @@
     <Compile Include="Assets\_Main\Scripts\Test\TestHistory.cs" />
     <Compile Include="Assets\_Main\Scripts\Core\Characters\CharacterTypes\CharacterModel3D.cs" />
     <Compile Include="Assets\_Main\Scripts\Core\Dialogue\NameContainer.cs" />
+    <Compile Include="Assets\_Main\Scripts\Core\InteractPanels\MenuPanels\Pages\MainMenu.cs" />
     <Compile Include="Assets\_Main\Scripts\Core\LogicalLines\LogicLineUtilities.cs" />
     <Compile Include="Assets\_Main\Scripts\Core\Dialogue\DataContainers\DialogueData.cs" />
     <Compile Include="Assets\_Main\Scripts\Core\GraphicPanels\GraphicObject.cs" />
@@ -171,6 +174,7 @@
     <None Include="Assets\gameData\testFile08.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
+    <None Include="Assets\_Main\Resources\Dialogue Files\Chapter0.txt" />
     <None Include="Assets\gameData\testFile03.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />

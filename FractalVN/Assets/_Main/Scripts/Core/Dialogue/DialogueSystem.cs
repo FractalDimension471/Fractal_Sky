@@ -31,7 +31,7 @@ namespace DIALOGUE
         [field:SerializeField]
         private TextArchitect TextArchitect { get; set; }
         private CanvasGroupController CgController { get; set; }
-        private AutoReader Reader { get; set; }
+        public AutoReader Reader { get; private set; }
 
         [SerializeField]
         private DialogueContainer _DialogueContainer;

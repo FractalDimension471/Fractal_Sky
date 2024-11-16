@@ -62,7 +62,14 @@ public class CanvasGroupController
         }
         while (cg.alpha != targetAlpha)
         {
-            cg.alpha = Mathf.MoveTowards(cg.alpha, targetAlpha, Time.deltaTime * DialogueSystem.Instance.TransitionSpeed * speedMultiplier);
+            if (DialogueSystem.Instance != null)
+            {
+                cg.alpha = Mathf.MoveTowards(cg.alpha, targetAlpha, Time.deltaTime * DialogueSystem.Instance.TransitionSpeed * speedMultiplier);
+            }
+            else
+            {
+                cg.alpha = Mathf.MoveTowards(cg.alpha, targetAlpha, Time.deltaTime * 4.7f * speedMultiplier);
+            }
             yield return null;
         }
         Co_hiding = null;

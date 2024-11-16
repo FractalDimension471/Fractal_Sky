@@ -23,6 +23,7 @@ public class SLSlot : MonoBehaviour
     public Button DeleteButton { get; private set; }
     public int FileIndex { get; internal set; }
     public string FileSavePath { get; internal set; } = "";
+    public string ScreenShotSavePath { get; internal set; } = "";
     public void GenerateDetails(SLPage.MenuFuction fuction)
     {
         if (File.Exists(FileSavePath))
@@ -67,12 +68,23 @@ public class SLSlot : MonoBehaviour
     }
     public void Load()
     {
-        GalSaveFile.Load(FileSavePath, true);
-        SLPage.Instance.Close(true);
+        var targetFile = GalSaveFile.Load(FileSavePath, false);
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == MainMenu.ID_StartScene)
+        {
+            MainMenu.Instance.LoadGame(targetFile);//通过其他途径初始化
+        }
+        else
+        {
+            targetFile.Activate();//文件自初始化
+            SLPage.Instance.Close(true);
+        }
     }
     public void Delete()
     {
         File.Delete(FileSavePath);
+        File.Delete(FileSavePath + ".meta");
+        File.Delete(ScreenShotSavePath);
+        File.Delete(ScreenShotSavePath + ".meta");
         GenerateDetails(SLPage.Instance.CurrentFuction);    
     }
 }

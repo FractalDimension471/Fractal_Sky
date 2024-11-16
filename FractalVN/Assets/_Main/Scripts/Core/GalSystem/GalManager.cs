@@ -10,6 +10,8 @@ namespace GALGAME
         #region  Ù–‘/Property
         public static GalManager Instance { get; private set; }
         [field: SerializeField]
+        public GalConfigSO ConfigSO { get; private set; }
+        [field: SerializeField]
         public Camera MainCamera { get; private set; }
         #endregion
         #region ∑Ω∑®/Method
@@ -18,23 +20,27 @@ namespace GALGAME
             Instance = this;
             GalDataManager dataManager = GetComponent<GalDataManager>();
             dataManager.SetupExternalLinks();
-
-            GalSaveFile.ActiveFile = new();
+            if (GalSaveFile.ActiveFile == null)
+            {
+                GalSaveFile.ActiveFile = new();
+            }
+            
         }
-        public void LoadFile(string filePath)
+        private void Start()
         {
-            List<string> lines;
-            TextAsset file = Resources.Load<TextAsset>(filePath);
-            try
+            LoadGame();
+        }
+        private void LoadGame()
+        {
+            if (GalSaveFile.ActiveFile.IsNewGame)
             {
-                lines = FileManager.ReadTextAsset(file);
+                List<string> lines = FileManager.ReadTextAsset(ConfigSO.StartingFile);
+                DialogueSystem.Instance.Say(new(lines));
             }
-            catch
+            else
             {
-                Debug.LogError($"Dialogue file at path 'Resources/{filePath}' does not exist!");
-                return;
+                GalSaveFile.ActiveFile.Activate();
             }
-            DialogueSystem.Instance.Say(lines, filePath);
         }
         #endregion
     }

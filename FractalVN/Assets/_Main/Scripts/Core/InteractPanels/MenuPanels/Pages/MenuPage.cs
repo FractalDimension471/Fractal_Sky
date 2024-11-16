@@ -14,7 +14,7 @@ public class MenuPage : MonoBehaviour
     public PageType Type { get; private set; }
     private void Start()
     {
-        CGcontroller = new(this, CG);
+        CGcontroller ??= new(this, CG);
     }
     public virtual void Open()
     {
