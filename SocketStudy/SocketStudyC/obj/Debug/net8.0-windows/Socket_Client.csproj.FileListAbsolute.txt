@@ -1,0 +1,17 @@
+H:\DataBaseIII\SocketStudy\SocketStudyC\bin\Debug\net8.0-windows\Socket_Client.exe
+H:\DataBaseIII\SocketStudy\SocketStudyC\bin\Debug\net8.0-windows\Socket_Client.deps.json
+H:\DataBaseIII\SocketStudy\SocketStudyC\bin\Debug\net8.0-windows\Socket_Client.runtimeconfig.json
+H:\DataBaseIII\SocketStudy\SocketStudyC\bin\Debug\net8.0-windows\Socket_Client.dll
+H:\DataBaseIII\SocketStudy\SocketStudyC\bin\Debug\net8.0-windows\Socket_Client.pdb
+H:\DataBaseIII\SocketStudy\SocketStudyC\obj\Debug\net8.0-windows\Socket_Client.csproj.GenerateResource.cache
+H:\DataBaseIII\SocketStudy\SocketStudyC\obj\Debug\net8.0-windows\Socket_Client.GeneratedMSBuildEditorConfig.editorconfig
+H:\DataBaseIII\SocketStudy\SocketStudyC\obj\Debug\net8.0-windows\Socket_Client.AssemblyInfoInputs.cache
+H:\DataBaseIII\SocketStudy\SocketStudyC\obj\Debug\net8.0-windows\Socket_Client.AssemblyInfo.cs
+H:\DataBaseIII\SocketStudy\SocketStudyC\obj\Debug\net8.0-windows\Socket_Client.csproj.CoreCompileInputs.cache
+H:\DataBaseIII\SocketStudy\SocketStudyC\obj\Debug\net8.0-windows\Socket_Client.dll
+H:\DataBaseIII\SocketStudy\SocketStudyC\obj\Debug\net8.0-windows\refint\Socket_Client.dll
+H:\DataBaseIII\SocketStudy\SocketStudyC\obj\Debug\net8.0-windows\Socket_Client.pdb
+H:\DataBaseIII\SocketStudy\SocketStudyC\obj\Debug\net8.0-windows\Socket_Client.genruntimeconfig.cache
+H:\DataBaseIII\SocketStudy\SocketStudyC\obj\Debug\net8.0-windows\ref\Socket_Client.dll
+H:\DataBaseIII\SocketStudy\SocketStudyC\obj\Debug\net8.0-windows\Socket_Client.ClientUI.resources
+H:\DataBaseIII\SocketStudy\SocketStudyC\obj\Debug\net8.0-windows\SocketStudyC.ClientUI.resources
