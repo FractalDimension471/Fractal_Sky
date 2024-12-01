@@ -12,7 +12,7 @@ namespace CHARACTERS
     public class CharacterManager : MonoBehaviour
     {
         #region 属性/Property
-        private string ID_ChracterCasting { get; } = " as ";
+        public static string ID_ChracterCasting { get; } = " as ";
         private string ID_ChracterName { get; } = "<charname>";
         public string ID_CharacterRootPath => $"Characters/{ID_ChracterName}";
         public string ID_CharacterPrefabName => $"Character-[{ID_ChracterName}]";
@@ -86,6 +86,10 @@ namespace CHARACTERS
             //通过角色信息创建角色
             Character character = CreatCharacterFromInfo(info);
             character.Visible = Visibility;
+            if (info.castingName != info.name) 
+            {
+                character.CastingName = info.castingName;
+            }
             //新建角色加入角色字典中
             AllCharacters.Add(info.name.ToLower(), character);
             if (Visibility == true)
@@ -131,7 +135,7 @@ namespace CHARACTERS
         private Character CreatCharacterFromInfo(CharacterInfo info)
         {
             CharacterConfigData configData = info.configData;
-            switch(configData.CharacterType)
+            switch (configData.CharacterType)
             {
                 case Character.CharacterType.Text:
                     return new CharacterText(info.name,configData);

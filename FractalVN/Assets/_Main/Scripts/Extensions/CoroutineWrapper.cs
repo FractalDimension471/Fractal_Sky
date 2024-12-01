@@ -10,19 +10,19 @@ public class CoroutineWrapper
 {
     public CoroutineWrapper(MonoBehaviour owner,Coroutine co)
     {
-        this.owner = owner;
-        this.co = co;
+        Owner = owner;
+        CommandCoroutine = co;
     }
     #region  Ù–‘
-    private readonly MonoBehaviour owner;
-    private readonly Coroutine co;
-    public bool isDone = false;
+    private MonoBehaviour Owner { get; }
+    private Coroutine CommandCoroutine { get; }
+    public bool IsDone { get; internal set; } = false;
     #endregion
     #region ∑Ω∑®
     public void Stop()
     {
-        owner.StopCoroutine(co);
-        isDone = true;
+        Owner.StopCoroutine(CommandCoroutine);
+        IsDone = true;
     }
     #endregion
 }

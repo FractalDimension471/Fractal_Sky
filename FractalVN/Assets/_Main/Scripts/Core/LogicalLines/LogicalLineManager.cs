@@ -19,7 +19,8 @@ namespace DIALOGUE.LogicalLine
         public bool TryGetLogic(DialogueLine dialogueLine, out Coroutine logic)
         {
             foreach (var logicalLine in LogicalLines)
-            {
+            {   
+                //判断是否匹配，匹配则执行
                 if (logicalLine.Matches(dialogueLine))
                 {
                     logic = DialogueSystem.StartCoroutine(logicalLine.Excute(dialogueLine));
@@ -31,10 +32,13 @@ namespace DIALOGUE.LogicalLine
         }
         private void LoadLogicLines()
         {
+            //获取所有实现ILogicalLine接口的非接口类型（确保能实现功能）
             Assembly assembly = Assembly.GetExecutingAssembly();
             Type[] lineTypes = assembly.GetTypes().Where(t => typeof(ILogicalLine).IsAssignableFrom(t) && !t.IsInterface).ToArray();
+
             foreach (var lineType in lineTypes)
             {
+                //实例化逻辑行类型
                 ILogicalLine logicalLine=(ILogicalLine)Activator.CreateInstance(lineType);
                 LogicalLines.Add(logicalLine);
             }

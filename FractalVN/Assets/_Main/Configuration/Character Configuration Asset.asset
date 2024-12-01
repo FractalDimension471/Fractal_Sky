@@ -38,6 +38,17 @@ MonoBehaviour:
     <NameFont>k__BackingField: {fileID: 11400000, guid: 61057251f2efabf459da752c1396765b, type: 2}
     <DialogueFont>k__BackingField: {fileID: 11400000, guid: 61057251f2efabf459da752c1396765b, type: 2}
     _sprites:
+      _serializedList: []
+  - <Name>k__BackingField: Aurora
+    <Alias>k__BackingField: au
+    <NameFontSize>k__BackingField: 42
+    <DialogueFontSize>k__BackingField: 40
+    <CharacterType>k__BackingField: 1
+    <NameColor>k__BackingField: {r: 0.25490198, g: 0.43529415, b: 0.30980393, a: 1}
+    <DialogueColor>k__BackingField: {r: 0.28627452, g: 0.2509804, b: 0.21960786, a: 1}
+    <NameFont>k__BackingField: {fileID: 11400000, guid: 61057251f2efabf459da752c1396765b, type: 2}
+    <DialogueFont>k__BackingField: {fileID: 11400000, guid: 61057251f2efabf459da752c1396765b, type: 2}
+    _sprites:
       _serializedList:
-      - Key: chisa
-        Value: {fileID: 21300000, guid: ea1247611324566469e01c6746739a7a, type: 3}
+      - Key: 01
+        Value: {fileID: 21300000, guid: 7427632e007368c4b998cff39b97d42e, type: 3}

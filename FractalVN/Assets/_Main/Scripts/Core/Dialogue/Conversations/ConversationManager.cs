@@ -173,9 +173,9 @@ namespace DIALOGUE
             {
                 if (command.WaitForCompletion || command.Name == "wait") 
                 {
-                    CoroutineWrapper cw= CommandManager.Instance.Execute(command.Name, command.Arguments);
+                    CoroutineWrapper cw = CommandManager.Instance.Execute(command.Name, command.Arguments);
                     //用于用户介入
-                    while (!cw.isDone)
+                    while (!cw.IsDone)
                     {
                         if (UserPrompt)
                         {

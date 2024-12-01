@@ -32,35 +32,35 @@ namespace DIALOGUE.LogicalLine
         }
         public class Variable<T> : Variable
         {
-            private T value;
-            private Func<T> getter;
-            private Action<T> setter;
+            private T Value { get; }
+            private Func<T> Getter { get; }
+            private Action<T> Setter { get; }
 
             public Variable(T value = default, Func<T> getter = null, Action<T> setter = null)
             {
-                this.value = value;
+                this.Value = value;
                 if (getter == null)
                 {
-                    this.getter = () => value;
+                    this.Getter = () => value;
                 }
                 else
                 {
-                    this.getter = getter;
+                    this.Getter = getter;
                 }
 
                 if (setter == null)
                 {
-                    this.setter = newValue => value = newValue;
+                    this.Setter = newValue => value = newValue;
                 }
                 else
                 {
-                    this.setter = setter;
+                    this.Setter = setter;
                 }
             }
 
-            public override object Get() => getter();
+            public override object Get() => Getter();
 
-            public override void Set(object newValue) => setter((T)newValue);
+            public override void Set(object newValue) => Setter((T)newValue);
         }
         public static Dictionary<string, Database> Databases { get; protected set; } = new() { { ID_DefaultDatabaseName, new(ID_DefaultDatabaseName) } };
         public static Database DefaultDatabase => Databases[ID_DefaultDatabaseName];

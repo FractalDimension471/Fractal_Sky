@@ -9,9 +9,10 @@ using UnityEngine;
 
 namespace DIALOGUE.LogicalLine
 {
+    //逻辑行实用程序
     public class LogicLineUtilities
     {
-        
+        //封装
         public static class Encapsulation
         {
             #region 属性/Property
@@ -67,6 +68,7 @@ namespace DIALOGUE.LogicalLine
             }
             #endregion
         }
+        //正则表达式（封装和匹配用）
         public static class Expressions
         {
             #region 属性/Property
@@ -211,6 +213,7 @@ namespace DIALOGUE.LogicalLine
             }
             #endregion
         }
+       //条件运算符
         public static class Conditions
         {
             #region 属性/Property

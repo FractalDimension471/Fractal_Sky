@@ -12,10 +12,12 @@ namespace HISTORY
     public class CharacterData
     {
         #region  Ù–‘/Property
-        [field:SerializeField]
-        public string CharacterName {  get; set; }
         [field: SerializeField]
-        public string DisplayName {  get; set; }
+        public string CharacterName { get; set; } = "";
+        [field: SerializeField]
+        public string DisplayName { get; set; } = "";
+        [field: SerializeField]
+        public string CastingName { get; set; } = "";
         [field: SerializeField]
         public bool Visible {  get; set; }
         [field: SerializeField]
@@ -132,6 +134,7 @@ namespace HISTORY
                 {
                     CharacterName = character.Name,
                     DisplayName = character.DisplayName,
+                    CastingName = character.CastingName,
                     Visible = character.Visible,
                     Active = character.Active,
                     FacingLeft = character.IsFacingLeft,
@@ -164,52 +167,62 @@ namespace HISTORY
             List<string> cache = new();
             foreach(var data in datas)
             {
-                Character character = CharacterManager.Instance.GetCharacter(data.CharacterName, true);
+                Character character = null;
 
-                if (character != null)
+                if (data.CastingName == string.Empty)
                 {
-                    character.DisplayName = data.CharacterName;
-                    character.SetVisibility(data.Visible);
-                    character.SetColor(data.Color);
-                    character.SetPriority(data.Priority);
-                    character.SetPosition(data.Position);
-                    SetAnimeData(character, JsonUtility.FromJson<AnimeData>(data.AnimeJSON));
-                    //SetAnimeData(character,JsonConvert.DeserializeObject<AnimeData>(data.DataJSON));
-
-                    if (data.Active)
-                    {
-                        character.Activate(immediate: true);
-                    }
-                    else
-                    {
-                        character.Inactivate(immediate: true);
-                    }
-                    if (data.FacingLeft)
-                    {
-                        character.FaceLeft(immediate: true);
-                    }
-                    else
-                    {
-                        character.FaceRight(immediate: true);
-                    }
-                    switch (character.ConfigData.CharacterType)
-                    {
-                        case Character.CharacterType.Sprite:
-                        case Character.CharacterType.SpriteSheet:
-                            SpriteData spriteData = JsonUtility.FromJson<SpriteData>(data.DataJSON);
-                            //SpriteData spriteData = JsonConvert.DeserializeObject<SpriteData>(data.DataJSON);
-                            CharacterSprite characterSprite = character as CharacterSprite;
-                            SetSpriteData(characterSprite, spriteData);
-                            break;
-                        case Character.CharacterType.Live2D:
-                            //SetLive2DData(),Ep.22.3
-                            break;
-                        case Character.CharacterType.Model3D:
-                            //SetModel3DData()
-                            break;
-                    }
-                    cache.Add(character.Name);
+                    character = CharacterManager.Instance.GetCharacter(data.CharacterName, true);
                 }
+                else
+                {
+                    character = CharacterManager.Instance.GetCharacter(data.CharacterName, false);
+                    if (character == null)
+                    {
+                        string fullCastingName = $"{data.CharacterName}{CharacterManager.ID_ChracterCasting}{data.CastingName}";
+                        character=CharacterManager.Instance.CreateCharacter(fullCastingName);
+                    }
+                }
+                character.DisplayName = data.CharacterName;
+                character.SetVisibility(data.Visible);
+                character.SetColor(data.Color);
+                character.SetPriority(data.Priority);
+                character.SetPosition(data.Position);
+                SetAnimeData(character, JsonUtility.FromJson<AnimeData>(data.AnimeJSON));
+                //SetAnimeData(character,JsonConvert.DeserializeObject<AnimeData>(data.DataJSON));
+
+                if (data.Active)
+                {
+                    character.Activate(immediate: true);
+                }
+                else
+                {
+                    character.Inactivate(immediate: true);
+                }
+                if (data.FacingLeft)
+                {
+                    character.FaceLeft(immediate: true);
+                }
+                else
+                {
+                    character.FaceRight(immediate: true);
+                }
+                switch (character.ConfigData.CharacterType)
+                {
+                    case Character.CharacterType.Sprite:
+                    case Character.CharacterType.SpriteSheet:
+                        SpriteData spriteData = JsonUtility.FromJson<SpriteData>(data.DataJSON);
+                        //SpriteData spriteData = JsonConvert.DeserializeObject<SpriteData>(data.DataJSON);
+                        CharacterSprite characterSprite = character as CharacterSprite;
+                        SetSpriteData(characterSprite, spriteData);
+                        break;
+                    case Character.CharacterType.Live2D:
+                        //SetLive2DData(),Ep.22.3
+                        break;
+                    case Character.CharacterType.Model3D:
+                        //SetModel3DData()
+                        break;
+                }
+                cache.Add(character.Name);
             }
             foreach(var c in CharacterManager.Instance.AllCharacters)
             {

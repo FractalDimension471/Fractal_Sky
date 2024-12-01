@@ -1,0 +1,17 @@
+choice @请选择要查看的内容@
+{
+	-怎样开始使用？
+		 FD471@如果要开始一个游戏，您可以在以下路径找到名为‘Gal Config’的可编程物件（SO）@
+		 @：Assets/_Main/Configurations/Gal Config@
+		 @单击选择后，Unity Editor中的‘Inspector’界面会出现‘Starting File’一栏，@
+		 @在‘Starting File’中修改游戏开始所用的脚本后，你的游戏项目就可以启动了。@
+		Load(/f Intro01)
+	-关于第三方插件
+		FD471@本项目的第三方插件仅使用了作者"A yellow paper"制作的可序列化字典（Serializable Dictionary），并未涉及系统的核心功能。@
+		@此外的包括输入管理器（Player Input）在内的插件均来自Unity官方，请放心使用@
+		@还有一件必须提及的事情就是，本项目的Shader以及相关的BlendTexture动画特效是由Youtube博主“Stella Studio”制作并免费发布的，@
+		@再次感谢Stella Studio，没有他们的教程，也就没有这个项目。@
+		Load(/f Intro01)
+	-试玩Demo
+		Load(/f Demos)
+}

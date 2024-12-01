@@ -38,8 +38,11 @@ namespace COMMANDS
             genericCommands.AddCommand("inactivate", new Func<string[], IEnumerator>(InactivateCharacter));
             genericCommands.AddCommand("show", new Func<string[], IEnumerator>(ShowCharacters));
             genericCommands.AddCommand("hide", new Func<string[], IEnumerator>(HideCharacters));
+
             CommandDatabase spriteCommands = CommandManager.Instance.CreateSubDatabase(CommandManager.ID_CharacterDB_Sprite);
             spriteCommands.AddCommand("setsprite", new Func<string[], IEnumerator>(SetCharacterSprite));
+            
+
         }
         public static void CreateCharacter(string[] data)
         {

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0d07258972ba5041878279cb3733732, type: 3}
   m_Name: Game Config
   m_EditorClassIdentifier: 
-  <StartingFile>k__BackingField: {fileID: 4900000, guid: 48a43e8f550ab3f4cb3cffdff2edb6ce, type: 3}
+  <StartingFile>k__BackingField: {fileID: 4900000, guid: 240b0f64d463d284299dfc11d998615d, type: 3}

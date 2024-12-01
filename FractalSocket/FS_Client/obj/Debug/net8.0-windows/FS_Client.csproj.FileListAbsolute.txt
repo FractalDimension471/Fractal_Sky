@@ -1,0 +1,16 @@
+H:\DataBaseIII\FractalSocket\FS_Client\bin\Debug\net8.0-windows\FS_Client.exe
+H:\DataBaseIII\FractalSocket\FS_Client\bin\Debug\net8.0-windows\FS_Client.deps.json
+H:\DataBaseIII\FractalSocket\FS_Client\bin\Debug\net8.0-windows\FS_Client.runtimeconfig.json
+H:\DataBaseIII\FractalSocket\FS_Client\bin\Debug\net8.0-windows\FS_Client.dll
+H:\DataBaseIII\FractalSocket\FS_Client\bin\Debug\net8.0-windows\FS_Client.pdb
+H:\DataBaseIII\FractalSocket\FS_Client\obj\Debug\net8.0-windows\FS_Client.UI.resources
+H:\DataBaseIII\FractalSocket\FS_Client\obj\Debug\net8.0-windows\FS_Client.csproj.GenerateResource.cache
+H:\DataBaseIII\FractalSocket\FS_Client\obj\Debug\net8.0-windows\FS_Client.GeneratedMSBuildEditorConfig.editorconfig
+H:\DataBaseIII\FractalSocket\FS_Client\obj\Debug\net8.0-windows\FS_Client.AssemblyInfoInputs.cache
+H:\DataBaseIII\FractalSocket\FS_Client\obj\Debug\net8.0-windows\FS_Client.AssemblyInfo.cs
+H:\DataBaseIII\FractalSocket\FS_Client\obj\Debug\net8.0-windows\FS_Client.csproj.CoreCompileInputs.cache
+H:\DataBaseIII\FractalSocket\FS_Client\obj\Debug\net8.0-windows\FS_Client.dll
+H:\DataBaseIII\FractalSocket\FS_Client\obj\Debug\net8.0-windows\refint\FS_Client.dll
+H:\DataBaseIII\FractalSocket\FS_Client\obj\Debug\net8.0-windows\FS_Client.pdb
+H:\DataBaseIII\FractalSocket\FS_Client\obj\Debug\net8.0-windows\FS_Client.genruntimeconfig.cache
+H:\DataBaseIII\FractalSocket\FS_Client\obj\Debug\net8.0-windows\ref\FS_Client.dll

@@ -1,0 +1,13 @@
+SetLayerMedia(/p BackGround /m "Above Clouds" /i true)
+CreateCharacter(FractalDimension471 as FD471 /e true)
+FD471@你好，创作者{a}，欢迎使用FractalVN@
+@‘FractalVN’是基于Unity的视觉小说(或者AVG、Galgame)开发组件。@
+@你可以使用本组件中的任何内容开发任意类型的游戏，包括代码、美术和音乐资源，@
+@因为包括美术和音乐内容都是由作者独立创作的。@
+@本项目遵循MIT协议，如果您使用了本组件，只需要在后续发布的内容中表明出处即可。@
+@本项目的GitHub地址为：https://github.com/FractalDimension471/Fractal_Sky/tree/main/FractalVN@
+@如果遇到任何问题，欢迎提交issue。@
+@那么，希望你的创作过程一路风顺（笑）。@
+@在后续的内容中，我将会作为向导，介绍本组件的一些基本功能。@
+@祝使用愉快。@
+Load(/f Intro01)

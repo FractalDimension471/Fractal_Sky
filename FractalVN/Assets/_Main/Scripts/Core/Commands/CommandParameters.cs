@@ -11,6 +11,7 @@ namespace COMMANDS
         private static char ID_Parameter { get; } = '/';
         #endregion
         #region 方法/Method
+        //将文本解译为参数
         public CommandParameters(string[] parameterArray)
         {
             for (int i = 0; i < parameterArray.Length; Interlocked.Increment(ref i))

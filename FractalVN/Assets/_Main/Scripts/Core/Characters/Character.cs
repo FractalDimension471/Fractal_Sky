@@ -10,11 +10,12 @@ namespace CHARACTERS
     /// </summary>
     public abstract class Character
     {
-        
+
         #region  Ù–‘
 
-        public string Name { get; }
-        public string DisplayName { get; internal set; }
+        public string Name { get; } = "";
+        public string DisplayName { get; internal set; } = "";
+        public string CastingName { get; internal set; } = "";
         public int Priority { get; protected set; }
         public virtual bool Visible { get; set; } = false;
         public virtual bool Active { get; set; } = false;

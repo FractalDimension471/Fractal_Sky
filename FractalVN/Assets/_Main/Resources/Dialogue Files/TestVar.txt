@@ -23,7 +23,7 @@ FractalDimension471@似乎充值成功了呢@
 @数据显示现在你有$tmp.money元，{a}要不去买点东西试试？@
 FractalDimension471.Hide()
 SetLayerMedia(/p BackGround /m "konbini")
-CreateCharacter("StoreKeeper as Generic")
+CreateCharacter("StoreKeeper as FractalDimension471")
 StoreKeeper@欢迎光临~@
 @请问你要买些什么呢？@
 Choice@选择购买的物品（当前金额：$tmp.money）@

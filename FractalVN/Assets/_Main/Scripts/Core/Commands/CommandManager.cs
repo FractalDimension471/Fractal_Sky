@@ -15,12 +15,9 @@ namespace COMMANDS
     public class CommandManager : MonoBehaviour
     {
         #region 属性/Property
-        //定义实例
         public static CommandManager Instance { get; private set; }
-        //定义数据库
         private CommandDatabase Database { get; } = new();
         private Dictionary<string, CommandDatabase> SubDatabases { get; } = new();
-        //定义协程程序
         private List<CommandProcess> ActiveProcesses { get; } = new();
         private CommandProcess TopProcess => ActiveProcesses.Last();
         private static char ID_SubCommand { get; } = '.';
@@ -43,6 +40,7 @@ namespace COMMANDS
                 //获取数据库扩展的类型
                 foreach (Type extension in extensionTypes)
                 {
+                    //使用反射获取所有DataBaseExtension里面的方法并执行
                     MethodInfo extendMethod = extension.GetMethod("Extend");
                     extendMethod.Invoke(Instance, new object[] { Database });
                 }
@@ -81,7 +79,7 @@ namespace COMMANDS
         public void KillProcess(CommandProcess commandProcess)
         {
             ActiveProcesses.Remove(commandProcess);
-            if (commandProcess.RunningProcess != null && !commandProcess.RunningProcess.isDone)
+            if (commandProcess.RunningProcess != null && !commandProcess.RunningProcess.IsDone)
             {
                 commandProcess.RunningProcess.Stop();
             }
@@ -92,8 +90,10 @@ namespace COMMANDS
             Guid processID = Guid.NewGuid();
             CommandProcess commandProcess = new(processID, commandName, command, args, null, null);
             ActiveProcesses.Add(commandProcess);
-            Coroutine co = StartCoroutine(RunningProcess(commandProcess));
-            commandProcess.RunningProcess = new(this, co);
+            Coroutine CO_Command = StartCoroutine(RunningProcess(commandProcess));
+
+            //将命令封装为协程运行
+            commandProcess.RunningProcess = new(this, CO_Command);
             return commandProcess.RunningProcess;
         }
         private CoroutineWrapper ExecuteSubCommand(string commandName,string[] args)
@@ -173,7 +173,7 @@ namespace COMMANDS
         {
             foreach(CommandProcess commandProcess in ActiveProcesses)
             {
-                if (commandProcess.RunningProcess != null && !commandProcess.RunningProcess.isDone)
+                if (commandProcess.RunningProcess != null && !commandProcess.RunningProcess.IsDone)
                 {
                     commandProcess.RunningProcess.Stop();
                 }
@@ -183,6 +183,7 @@ namespace COMMANDS
         }
         private IEnumerator RunningProcess(CommandProcess commandProcess)
         {
+            //等待完成
             yield return WaitingForProcessToComplete(commandProcess.Command, commandProcess.Args);
 
             KillProcess(commandProcess);
