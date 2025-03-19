@@ -1,5 +1,4 @@
 using DIALOGUE;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,7 +23,7 @@ namespace GALGAME
             {
                 GalSaveFile.ActiveFile = new();
             }
-            
+
         }
         private void Start()
         {

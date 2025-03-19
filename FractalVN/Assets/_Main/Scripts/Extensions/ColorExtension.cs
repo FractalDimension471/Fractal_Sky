@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public static class ColorExtension
@@ -24,7 +22,7 @@ public static class ColorExtension
                 return Color.yellow;
             case "cyan":
                 return Color.cyan;
-            case "magenta": 
+            case "magenta":
                 return Color.magenta;
             default:
                 Debug.LogWarning($"Invalid color name '{colorName}'.");

@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FunctionPanel : MonoBehaviour
 {
     #region  Ù–‘/Property
-    public static FunctionPanel Instance {  get; private set; }
+    public static FunctionPanel Instance { get; private set; }
     private CanvasGroupController CgController { get; set; }
 
     [SerializeField] private GameObject _Root;

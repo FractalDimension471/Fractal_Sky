@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Threading;
+using UnityEngine;
 public class AudioChannel
 {
     #region ÊôÐÔ/Property
@@ -58,7 +58,7 @@ public class AudioChannel
     public bool TryGetTrack(string trackName, out AudioTrack value)
     {
         trackName = trackName.ToLower();
-        foreach(AudioTrack audioTrack in AudioTracks)
+        foreach (AudioTrack audioTrack in AudioTracks)
         {
             if (audioTrack.Name.ToLower() == trackName)
             {
@@ -78,7 +78,7 @@ public class AudioChannel
     }
     private IEnumerator LevelingVolume()
     {
-        
+
         while (CanLevelingVolume)
         {
             for (int i = AudioTracks.Count - 1; i >= 0; Interlocked.Decrement(ref i))

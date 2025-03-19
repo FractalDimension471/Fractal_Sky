@@ -1,12 +1,9 @@
 using DIALOGUE;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class ConfigPage : MenuPage
@@ -14,13 +11,13 @@ public class ConfigPage : MenuPage
     public static ConfigPage Instance { get; private set; }
     [field: SerializeField]
     public GameObject[] SubPages { get; private set; }
-    private GameObject ActiveSubPage {  get; set; }
-    [field:SerializeField]
+    private GameObject ActiveSubPage { get; set; }
+    [field: SerializeField]
     public Controls UserControls { get; private set; }
     private static ConfigData Config { get; set; } = Config;
     private AudioManager AudioManager => AudioManager.Instance;
     private AnimationCurve NormalizeCurve => AudioManager.AudioNormalizeCurve;
-    
+
     [System.Serializable]
     public class Controls
     {
@@ -47,9 +44,9 @@ public class ConfigPage : MenuPage
         public Slider SoundVolume { get; private set; }
         [field: SerializeField]
         public Slider VoiceVolume { get; private set; }
-        [field:SerializeField]
+        [field: SerializeField]
         public Toggle MainMutePanel { get; private set; }
-        [field:SerializeField]
+        [field: SerializeField]
         public Toggle MainMute { get; private set; }
         [field: SerializeField]
         public Toggle MusicMute { get; private set; }
@@ -84,10 +81,10 @@ public class ConfigPage : MenuPage
         {
             Debug.LogWarning($"Cannot find page '{pageName} in menu.'");
             return;
-        } 
-        if (ActiveSubPage != null && ActiveSubPage != page) 
+        }
+        if (ActiveSubPage != null && ActiveSubPage != page)
         {
-            ActiveSubPage.SetActive(false); 
+            ActiveSubPage.SetActive(false);
         }
         page.SetActive(true);
         ActiveSubPage = page;
@@ -96,7 +93,7 @@ public class ConfigPage : MenuPage
     {
         var resolutions = Screen.resolutions.Reverse();
         List<string> options = new();
-        foreach(var resolution in resolutions)
+        foreach (var resolution in resolutions)
         {
             options.Add($"{resolution.width}x{resolution.height}");
         }
@@ -121,9 +118,9 @@ public class ConfigPage : MenuPage
     }
     public void OnChangeFullScreenMode()
     {
-        Config.IsFullScreen= UserControls.FullScreen.isOn;
+        Config.IsFullScreen = UserControls.FullScreen.isOn;
         Screen.fullScreen = Config.IsFullScreen;
-        if (UserControls.Windowed.isOn == UserControls.FullScreen.isOn) 
+        if (UserControls.Windowed.isOn == UserControls.FullScreen.isOn)
         {
             UserControls.Windowed.isOn = !UserControls.FullScreen.isOn;
         }
@@ -141,7 +138,7 @@ public class ConfigPage : MenuPage
     {
         string resolution = UserControls.Resolutions.captionText.text;
         string[] values = resolution.Split('x');
-        if (int.TryParse(values[0], out int width) && int.TryParse(values[1], out int height)) 
+        if (int.TryParse(values[0], out int width) && int.TryParse(values[1], out int height))
         {
             Screen.SetResolution(width, height, Screen.fullScreen);
             Config.CurrentResolution = resolution;
@@ -167,7 +164,7 @@ public class ConfigPage : MenuPage
             return;
         }
         AutoReader reader = DialogueSystem.Instance.Reader;
-        if(reader != null)
+        if (reader != null)
         {
             reader.SpeedMultiplier = Config.CurrentAutoReadSpeed;
         }
@@ -203,7 +200,7 @@ public class ConfigPage : MenuPage
     public void SetMainMutePanel()
     {
         Config.MuteMain = UserControls.MainMutePanel.isOn;
-        if (UserControls.MainMute.isOn != UserControls.MainMutePanel.isOn) 
+        if (UserControls.MainMute.isOn != UserControls.MainMutePanel.isOn)
         {
             UserControls.MainMute.isOn = UserControls.MainMutePanel.isOn;
         }
@@ -212,11 +209,11 @@ public class ConfigPage : MenuPage
     public void SetMainMute()
     {
         Config.MuteMain = UserControls.MainMute.isOn;
-        if(UserControls.MainMutePanel != null && UserControls.MainMutePanel.isOn != UserControls.MainMute.isOn)
+        if (UserControls.MainMutePanel != null && UserControls.MainMutePanel.isOn != UserControls.MainMute.isOn)
         {
             UserControls.MainMutePanel.isOn = UserControls.MainMute.isOn;
         }
-        
+
         SetMainVolume();
     }
     public void SetMusicMute()
@@ -232,6 +229,6 @@ public class ConfigPage : MenuPage
     public void SetVoiceMute()
     {
         Config.MuteVoice = UserControls.VoiceMute.isOn;
-        SetVoiceVolume();   
+        SetVoiceVolume();
     }
 }

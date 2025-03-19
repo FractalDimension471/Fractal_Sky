@@ -1,11 +1,11 @@
+using CHARACTERS;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Linq;
-using System;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.Events;
-using CHARACTERS;
 
 namespace COMMANDS
 {
@@ -96,7 +96,7 @@ namespace COMMANDS
             commandProcess.RunningProcess = new(this, CO_Command);
             return commandProcess.RunningProcess;
         }
-        private CoroutineWrapper ExecuteSubCommand(string commandName,string[] args)
+        private CoroutineWrapper ExecuteSubCommand(string commandName, string[] args)
         {
             //分割作为键名
             string[] parts = commandName.Split(ID_SubCommand);
@@ -125,9 +125,9 @@ namespace COMMANDS
                 return ExecuteCharacterCommand(subCommandName, args);
             }
             Debug.LogError($"There is no command called '{commandName}' in database '{databaseName}', '{subCommandName}' cannot be run.");
-            return null;    
+            return null;
         }
-        private CoroutineWrapper ExecuteCharacterCommand(string commandName,params string[] args)
+        private CoroutineWrapper ExecuteCharacterCommand(string commandName, params string[] args)
         {
             CommandDatabase commandDatabase = SubDatabases[ID_CharacterDB_Generic];
             //通用指令(Text)
@@ -142,11 +142,11 @@ namespace COMMANDS
             switch (characterConfigData.CharacterType)
             {
                 case Character.CharacterType.Sprite:
-                //case Character.CharacterType.SpriteSheet:
+                    //case Character.CharacterType.SpriteSheet:
                     commandDatabase = SubDatabases[ID_CharacterDB_Sprite];
                     break;
-                //case Character.CharacterType.Live2D:
-                //case Character.CharacterType.Model3D:
+                    //case Character.CharacterType.Live2D:
+                    //case Character.CharacterType.Model3D:
             }
             command = commandDatabase.GetCommand(commandName);
             if (command != null)
@@ -171,7 +171,7 @@ namespace COMMANDS
         /// </summary>
         public void StopAllProcesses()
         {
-            foreach(CommandProcess commandProcess in ActiveProcesses)
+            foreach (CommandProcess commandProcess in ActiveProcesses)
             {
                 if (commandProcess.RunningProcess != null && !commandProcess.RunningProcess.IsDone)
                 {
@@ -228,7 +228,7 @@ namespace COMMANDS
         public CommandDatabase CreateSubDatabase(string name)
         {
             name = name.ToLower();
-            if(SubDatabases.TryGetValue(name,out CommandDatabase commandDatabase))
+            if (SubDatabases.TryGetValue(name, out CommandDatabase commandDatabase))
             {
                 Debug.LogWarning($"A database named '{name}' already exists!");
                 return commandDatabase;

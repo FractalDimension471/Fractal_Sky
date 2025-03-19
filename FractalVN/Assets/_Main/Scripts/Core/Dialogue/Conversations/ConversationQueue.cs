@@ -1,7 +1,4 @@
-using DIALOGUE.LogicalLine;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace DIALOGUE
 {
@@ -21,7 +18,7 @@ namespace DIALOGUE
         public void Enqueue(Conversation conversation) => CurrentQueue.Enqueue(conversation);
         public void Dequeue()
         {
-            if(CurrentQueue.Count > 0)
+            if (CurrentQueue.Count > 0)
             {
                 CurrentQueue.Dequeue();
             }

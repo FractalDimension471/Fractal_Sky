@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 namespace DIALOGUE
@@ -34,14 +32,14 @@ namespace DIALOGUE
         /// </summary>
         /// <param name="rawLine"></param>
         /// <returns></returns>
-        private static(string,string,string) RipContent(string rawLine)
+        private static (string, string, string) RipContent(string rawLine)
         {
-            string speaker="", dialogue="", commands="";
+            string speaker = "", dialogue = "", commands = "";
             int dialogueStart = -1;
             int dialogueEnd = -1;
             bool isEscaped = false;
 
-            for (int t = 0; t < rawLine.Length; t++) 
+            for (int t = 0; t < rawLine.Length; t++)
             {
                 char current = rawLine[t];
                 if (current == ID_EscapeIdentifier)
@@ -51,7 +49,7 @@ namespace DIALOGUE
                 //定义“@”作为分隔符
                 else if (current == ID_DialogueIdentifier && !isEscaped)
                 {
-                    if(dialogueStart==-1)
+                    if (dialogueStart == -1)
                     {
                         dialogueStart = t;
                     }
@@ -61,21 +59,21 @@ namespace DIALOGUE
                         break;
                     }
                 }
-                else if(current == ID_DialogueIdentifier && isEscaped)
+                else if (current == ID_DialogueIdentifier && isEscaped)
                 {
                     isEscaped = false;
                 }
-                
+
             }
             //Debug.Log(rawline.Substring(dialogueStart + 1, (dialogueEnd - dialogueStart)-1));
             //定义正则表达式（用于匹配）
             Regex commandRegex = new(ID_Dialogue);
             MatchCollection matches = commandRegex.Matches(rawLine);
             int commandStart = -1;
-            foreach(Match match in matches)
+            foreach (Match match in matches)
             {
                 //确保对话内的指令不会生效
-                if (match.Index < dialogueStart || match.Index > dialogueEnd) 
+                if (match.Index < dialogueStart || match.Index > dialogueEnd)
                 {
                     commandStart = match.Index;
                     break;
@@ -101,7 +99,7 @@ namespace DIALOGUE
                     commands = rawLine[commandStart..].Trim().ToLower();
                 }
             }
-            else if (commandStart != -1 && dialogueStart > commandStart) 
+            else if (commandStart != -1 && dialogueStart > commandStart)
             {
                 commands = rawLine;
             }

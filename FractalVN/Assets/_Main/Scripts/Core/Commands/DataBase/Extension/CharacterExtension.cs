@@ -1,9 +1,9 @@
+using CHARACTERS;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using CHARACTERS;
 
 namespace COMMANDS
 {
@@ -41,7 +41,7 @@ namespace COMMANDS
 
             CommandDatabase spriteCommands = CommandManager.Instance.CreateSubDatabase(CommandManager.ID_CharacterDB_Sprite);
             spriteCommands.AddCommand("setsprite", new Func<string[], IEnumerator>(SetCharacterSprite));
-            
+
 
         }
         public static void CreateCharacter(string[] data)
@@ -71,7 +71,7 @@ namespace COMMANDS
             var parameters = ConvertDataToParameters(data);
             //获取命令参数
             parameters.TryGetValue(ID_Immediate, out bool immediate, false);
-            foreach(Character character in characters)
+            foreach (Character character in characters)
             {
                 character.Show(immediate);
             }
@@ -219,7 +219,7 @@ namespace COMMANDS
             }
             else
             {
-                CommandManager.Instance.AddEndingActionToCurrentProcess(() => { character?.Activate(immediate:true); });
+                CommandManager.Instance.AddEndingActionToCurrentProcess(() => { character?.Activate(immediate: true); });
                 yield return character.Activate();
             }
         }
@@ -239,7 +239,7 @@ namespace COMMANDS
             }
             else
             {
-                CommandManager.Instance.AddEndingActionToCurrentProcess(() => { character?.Inactivate(immediate:true); });
+                CommandManager.Instance.AddEndingActionToCurrentProcess(() => { character?.Inactivate(immediate: true); });
                 yield return character.Inactivate();
             }
         }

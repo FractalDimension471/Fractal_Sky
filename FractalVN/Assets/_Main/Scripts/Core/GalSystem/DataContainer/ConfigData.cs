@@ -1,17 +1,14 @@
 using GALGAME;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using UnityEngine;
 [Serializable]
 public class ConfigData
 {
     public static ConfigData ActiveConfig { get; internal set; }
-    public static string DefaultConfigFileName = "GalConfig";
-    public static string FilePath =>FilePaths.GetPath(FilePaths.RunTimePath, DefaultConfigFileName + GalSaveFile.ID_DataFileType);
-    public static bool Encrypt { get; } = false;
+    public static string DefaultConfigFileName => "GalConfig";
+    public static string FilePath => FilePaths.GetPath(FilePaths.RunTimePath, DefaultConfigFileName + GalSaveFile.ID_DataFileType);
+    public static bool Encrypt { get; } = true;
     //Generic
     public bool IsFullScreen = true;
     public string CurrentResolution = "1920x1080";
@@ -30,11 +27,12 @@ public class ConfigData
     public float HistoryLogScale = 1f;
     public void Save()
     {
-        FileManager.Save(FilePath, JsonUtility.ToJson(this), Encrypt);
+        FileManager.Save(FilePath, JsonUtility.ToJson(ActiveConfig), Encrypt);
         Debug.Log("Config data saved!");
     }
     public void Load()
     {
+        ActiveConfig = this;
         var controls = ConfigPage.Instance.UserControls;
         //Generic   
         ConfigPage.Instance.SetDiplayToFullScreen(IsFullScreen);
@@ -48,7 +46,7 @@ public class ConfigData
         controls.MusicVolume.value = MusicVolume;
         controls.SoundVolume.value = SoundVolume;
         controls.VoiceVolume.value = VoiceVolume;
-        if(controls.MainMutePanel != null)
+        if (controls.MainMutePanel != null)
         {
             controls.MainMutePanel.isOn = MuteMain;
         }

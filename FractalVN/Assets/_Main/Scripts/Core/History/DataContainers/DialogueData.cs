@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DIALOGUE;
 using TMPro;
+using UnityEngine;
 
 namespace HISTORY
 {
@@ -10,10 +8,10 @@ namespace HISTORY
     public class DialogueData
     {
         #region  Ù–‘/Property
-        [field:SerializeField]
-        public TextData Dialogue {  get; private set; }
         [field: SerializeField]
-        public SpeakerData Speaker {  get; set; }
+        public TextData Dialogue { get; private set; }
+        [field: SerializeField]
+        public SpeakerData Speaker { get; set; }
 
         [System.Serializable]
         public class TextData
@@ -71,7 +69,7 @@ namespace HISTORY
             var ds = DialogueSystem.Instance;
 
             var dialogueText = ds.DialogueContainer.DialogueText;
-            var nameText= ds.NameContainer.NameText;
+            var nameText = ds.NameContainer.NameText;
 
             ds.ConversationManager.TextArchitect.SetText(data.Dialogue.CurrentText);
             dialogueText.color = data.Dialogue.TextColor;

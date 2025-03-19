@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,7 +10,7 @@ namespace DIALOGUE
     public class PlayerInputManager : MonoBehaviour
     {
         #region  Ù–‘/Property
-        public static PlayerInputManager Instance {  get; private set; }
+        public static PlayerInputManager Instance { get; private set; }
         private PlayerInput Input { get; set; }
         private List<(InputAction action, Action<InputAction.CallbackContext> command)> InputActions { get; } = new();
         #endregion
@@ -23,7 +22,7 @@ namespace DIALOGUE
         }
         private void OnEnable()
         {
-            foreach(var (action, command) in InputActions)
+            foreach (var (action, command) in InputActions)
             {
                 action.performed += command;
             }

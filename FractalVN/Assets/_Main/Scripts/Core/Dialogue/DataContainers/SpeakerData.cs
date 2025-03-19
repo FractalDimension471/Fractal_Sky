@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 /// <summary>
 /// 说话者数据
@@ -72,16 +72,18 @@ public class SpeakerData
                 string[] axis = castPos.Split(ID_DefineExpression, System.StringSplitOptions.RemoveEmptyEntries);
 
                 Vector2 cachePos = CastPosition;
-                if(float.TryParse(axis[0], out float x))
+                if (float.TryParse(axis[0], out float x))
                 {
                     cachePos.x = x;
-                };//X轴
+                }
+                ;//X轴
                 if (axis.Length > 1)
                 {
-                    if(float.TryParse(axis[1], out float y))
+                    if (float.TryParse(axis[1], out float y))
                     {
                         cachePos.y = y;
-                    };//Y轴
+                    }
+                    ;//Y轴
                 }
                 CastPosition = cachePos;
             }

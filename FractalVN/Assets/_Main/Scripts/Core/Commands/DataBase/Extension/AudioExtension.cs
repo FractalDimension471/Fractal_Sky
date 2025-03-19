@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 
 namespace COMMANDS
 {
@@ -44,13 +41,14 @@ namespace COMMANDS
             parameters.TryGetValue(ID_Pitch, out float pitch, 1f);
             parameters.TryGetValue(ID_Loop, out bool loop, false);
 
-            AudioClip sound = Resources.Load<AudioClip>(GetAudioPath(FilePaths.DefaultSoundPaths, soundName));
+            string filePath = GetAudioPath(FilePaths.DefaultSoundPaths, soundName);
+            AudioClip sound = Resources.Load<AudioClip>(filePath);
             if (sound == null)
             {
                 Debug.LogError($"Can not load sound '{soundName}'!");
                 return;
             }
-            AudioManager.Instance.PlaySound(sound, volume: volume, pitch: pitch, loop: loop);
+            AudioManager.Instance.PlaySound(sound, volume: volume, pitch: pitch, loop: loop, filePath: filePath);
         }
         private static void StopSound(string data)
         {
@@ -74,7 +72,7 @@ namespace COMMANDS
         }
         private static void PlayMusic(string[] data)
         {
-            
+
             var parameters = ConvertDataToParameters(data);
             parameters.TryGetValue(ID_Music, out string musicName);
             parameters.TryGetValue(ID_Channel, out int channelNumber, 0);
@@ -93,7 +91,7 @@ namespace COMMANDS
         }
         private static void StopMusic(string data)
         {
-            if(int.TryParse(data,out int channel))
+            if (int.TryParse(data, out int channel))
             {
                 AudioManager.Instance.StopMusic(channel);
             }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading;
 using TMPro;
 using UnityEngine;
@@ -9,9 +7,11 @@ public class SLNavigationBar : MonoBehaviour
 {
     private static int MaxPageCount { get; } = 6;
     [field: SerializeField]
-    public SLPage Page {  get; private set; }
+    public SLPage Page { get; private set; }
     [field: SerializeField]
     public GameObject ButtonPrefab { get; private set; }
+    [field: SerializeField]
+    public TextMeshProUGUI PageIndex { get; private set; }
     private bool Initialized { get; set; } = false;
     public int SelectedPageIndex { get; internal set; } = 1;
     private int MaxPages { get; set; } = 0;
@@ -19,6 +19,7 @@ public class SLNavigationBar : MonoBehaviour
     void Start()
     {
         Initialize();
+        UpdatePageIndex(1);
     }
     private void Initialize()
     {
@@ -47,5 +48,10 @@ public class SLNavigationBar : MonoBehaviour
     {
         SelectedPageIndex = pageIndex;
         Page.GenerateSlots(pageIndex);
+        UpdatePageIndex(pageIndex);
+    }
+    private void UpdatePageIndex(int index)
+    {
+        PageIndex.text = $"{index}/{MaxPageCount}";
     }
 }

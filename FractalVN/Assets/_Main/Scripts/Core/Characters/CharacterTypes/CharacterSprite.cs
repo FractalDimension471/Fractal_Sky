@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 namespace CHARACTERS
@@ -52,7 +52,7 @@ namespace CHARACTERS
         {
             float targetAlpha = show ? 1f : 0;
             CanvasGroup self = RootCG;
-            while(self.alpha!=targetAlpha)
+            while (self.alpha != targetAlpha)
             {
                 if (immediate)
                 {
@@ -70,12 +70,12 @@ namespace CHARACTERS
         private void GetLayers()
         {
             Transform rendererRoot = Animator.transform.Find(ID_SpriteRenderName);
-            if (rendererRoot == null) 
+            if (rendererRoot == null)
             {
                 return;
             }
             //传递根物件的控件
-            for (int i = 0; i < rendererRoot.transform.childCount; Interlocked.Increment(ref i)) 
+            for (int i = 0; i < rendererRoot.transform.childCount; Interlocked.Increment(ref i))
             {
                 Transform child = rendererRoot.transform.GetChild(i);
                 if (child.TryGetComponent<Image>(out var rendererImage))
@@ -97,7 +97,7 @@ namespace CHARACTERS
         /// </summary>
         /// <param name="sprite"></param>
         /// <param name="layer"></param>
-        public void SetSprite(Sprite sprite,int layer = 0)
+        public void SetSprite(Sprite sprite, int layer = 0)
         {
             SpriteLayers[layer].SetSprite(sprite);
         }
@@ -110,13 +110,13 @@ namespace CHARACTERS
         {
             if (ConfigData.Sprites.Count > 0)
             {
-                if(ConfigData.Sprites.TryGetValue(spriteName, out Sprite sprite))
+                if (ConfigData.Sprites.TryGetValue(spriteName, out Sprite sprite))
                 {
                     return sprite;
                 }
             }
 
-            if(ConfigData.CharacterType==CharacterType.SpriteSheet)
+            if (ConfigData.CharacterType == CharacterType.SpriteSheet)
             {
                 //暂无:ep8.1,18:30(start)
                 return null;
@@ -136,7 +136,7 @@ namespace CHARACTERS
         public Coroutine TransitionSprite(Sprite sprite, int layer = 0, float speed = 1)
         {
             CharacterSpriteLayer spriteLyaer = SpriteLayers[layer];
-            return spriteLyaer.TransitionSprite(sprite,speed);
+            return spriteLyaer.TransitionSprite(sprite, speed);
         }
         /// <summary>
         /// 设置角色颜色
@@ -146,7 +146,7 @@ namespace CHARACTERS
         {
             base.SetColor(color);
             color = DisplayColor;
-            foreach(CharacterSpriteLayer spriteLayer in SpriteLayers)
+            foreach (CharacterSpriteLayer spriteLayer in SpriteLayers)
             {
                 spriteLayer.StopTransitioningColor();
                 spriteLayer.SetColor(color);
@@ -160,7 +160,7 @@ namespace CHARACTERS
         /// <returns></returns>
         public override IEnumerator TransitioningColor(Color color, float speed)
         {
-            foreach(CharacterSpriteLayer spriteLayer in SpriteLayers)
+            foreach (CharacterSpriteLayer spriteLayer in SpriteLayers)
             {
                 spriteLayer.TransitionColor(color, speed);
             }
@@ -180,7 +180,7 @@ namespace CHARACTERS
         public override IEnumerator CharacterActivating(bool active, float speedMutiplier, bool immediate = false)
         {
             Color targetColor = DisplayColor;
-            foreach(CharacterSpriteLayer spriteLayer in SpriteLayers)
+            foreach (CharacterSpriteLayer spriteLayer in SpriteLayers)
             {
                 if (immediate)
                 {
@@ -206,7 +206,7 @@ namespace CHARACTERS
         /// <returns></returns>
         public override IEnumerator FacingDirection(bool faceLeft, float speedMultiplier, bool immediate)
         {
-            foreach(CharacterSpriteLayer spriteLayer in SpriteLayers)
+            foreach (CharacterSpriteLayer spriteLayer in SpriteLayers)
             {
                 if (faceLeft)
                 {

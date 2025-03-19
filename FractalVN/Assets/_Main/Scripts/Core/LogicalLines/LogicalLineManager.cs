@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
-using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
-using Unity.VisualScripting;
 
 namespace DIALOGUE.LogicalLine
 {
@@ -19,7 +17,7 @@ namespace DIALOGUE.LogicalLine
         public bool TryGetLogic(DialogueLine dialogueLine, out Coroutine logic)
         {
             foreach (var logicalLine in LogicalLines)
-            {   
+            {
                 //判断是否匹配，匹配则执行
                 if (logicalLine.Matches(dialogueLine))
                 {
@@ -39,7 +37,7 @@ namespace DIALOGUE.LogicalLine
             foreach (var lineType in lineTypes)
             {
                 //实例化逻辑行类型
-                ILogicalLine logicalLine=(ILogicalLine)Activator.CreateInstance(lineType);
+                ILogicalLine logicalLine = (ILogicalLine)Activator.CreateInstance(lineType);
                 LogicalLines.Add(logicalLine);
             }
         }

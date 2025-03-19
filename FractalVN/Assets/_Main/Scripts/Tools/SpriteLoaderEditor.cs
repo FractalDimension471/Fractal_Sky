@@ -1,9 +1,10 @@
-using UnityEngine;
-using UnityEditor;
+#if UNITY_EDITOR
+using CHARACTERS;
 using System.Collections.Generic;
 using System.IO;
-using CHARACTERS;
 using System.Linq;
+using UnityEditor;
+using UnityEngine;
 
 public class SpriteLoaderEditor : EditorWindow
 {
@@ -130,3 +131,4 @@ public class SpriteLoaderEditor : EditorWindow
         }
     }
 }
+#endif

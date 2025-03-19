@@ -1,4 +1,3 @@
-using System.Globalization;
 using UnityEditor;
 
 namespace AYellowpaper.SerializedCollections.Editor.Search

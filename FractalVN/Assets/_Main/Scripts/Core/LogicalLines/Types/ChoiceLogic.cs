@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,13 +18,13 @@ namespace DIALOGUE.LogicalLine
         private struct Choice
         {
             public string Title { get; set; }
-            public List<string> ResultLines {  get; set; }
-            public int StartIndex {  get; set; }
+            public List<string> ResultLines { get; set; }
+            public int StartIndex { get; set; }
             public int EndIndex { get; set; }
         }
         #endregion
         #region 方法/Method
-        
+
         public bool Matches(DialogueLine dialogueLine)
         {
             return dialogueLine.HasSpeaker && dialogueLine.SpeakerData.Name.ToLower() == KeyWord;
@@ -72,7 +71,7 @@ namespace DIALOGUE.LogicalLine
             Conversation newConversation = new(selectedChoice.ResultLines, file: currentConversation.File, fileStartIndex: selectedChoice.StartIndex, fileEndIndex: selectedChoice.EndIndex);
             DialogueSystem.Instance.ConversationManager.TopConversation.Progress = choiceData.EndingIndex - currentConversation.FileStartIndex + 1;//加一回避选择内容最后的‘}’
             DialogueSystem.Instance.ConversationManager.EnqueuePriority(newConversation);
-            
+
         }
         private bool IsChoiceStart(string line) => line.Trim().StartsWith(ID_Choice);
         private bool HasingDefaultChoice(string line)

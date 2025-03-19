@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -8,7 +5,7 @@ using UnityEngine;
 /// </summary>
 public class CoroutineWrapper
 {
-    public CoroutineWrapper(MonoBehaviour owner,Coroutine co)
+    public CoroutineWrapper(MonoBehaviour owner, Coroutine co)
     {
         Owner = owner;
         CommandCoroutine = co;

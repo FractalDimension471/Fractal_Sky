@@ -1,9 +1,8 @@
-using System.Collections;
+using DIALOGUE;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using UnityEngine;
-using DIALOGUE;
 namespace CHARACTERS
 {
     /// <summary>
@@ -52,9 +51,9 @@ namespace CHARACTERS
         /// <param name="characterName"></param>
         /// <param name="createIfNotExist"></param>
         /// <returns></returns>
-        public Character GetCharacter(string characterName,bool createIfNotExist=false)
+        public Character GetCharacter(string characterName, bool createIfNotExist = false)
         {
-            if(AllCharacters.ContainsKey(characterName.ToLower()))
+            if (AllCharacters.ContainsKey(characterName.ToLower()))
             {
                 //字典中通过键名返回值
                 return AllCharacters[characterName.ToLower()];
@@ -76,7 +75,7 @@ namespace CHARACTERS
         public Character CreateCharacter(string characterName, bool Visibility = false, bool immediate = false)
         {
             //角色包含有输入名称，则说明已经创建该名称的角色
-            if(AllCharacters.ContainsKey(characterName.ToLower()))
+            if (AllCharacters.ContainsKey(characterName.ToLower()))
             {
                 Debug.LogWarning($"A character called '{characterName}' already exists. Can not create the character.");
                 return null;
@@ -86,7 +85,7 @@ namespace CHARACTERS
             //通过角色信息创建角色
             Character character = CreatCharacterFromInfo(info);
             character.Visible = Visibility;
-            if (info.castingName != info.name) 
+            if (info.castingName != info.name)
             {
                 character.CastingName = info.castingName;
             }
@@ -138,7 +137,7 @@ namespace CHARACTERS
             switch (configData.CharacterType)
             {
                 case Character.CharacterType.Text:
-                    return new CharacterText(info.name,configData);
+                    return new CharacterText(info.name, configData);
                 case Character.CharacterType.Sprite:
                 case Character.CharacterType.SpriteSheet:
                     return new CharacterSprite(info.name, configData, info.prefab, info.rootCharacterFolder);
@@ -174,7 +173,7 @@ namespace CHARACTERS
         {
             List<Character> activeCharacters = AllCharacters.Values.Where(c => c.Root.gameObject.activeInHierarchy).ToList(); //&& c.isVisible，但是可见性单独设置，不用管?
             List<Character> inactiveCharacters = AllCharacters.Values.Except(activeCharacters).ToList();
-            activeCharacters.Sort((a,b)=>a.Priority.CompareTo(b.Priority));
+            activeCharacters.Sort((a, b) => a.Priority.CompareTo(b.Priority));
             //连接列表
             activeCharacters.Concat(inactiveCharacters);
             SortCharacters(activeCharacters);
@@ -189,13 +188,13 @@ namespace CHARACTERS
             targetCharacters = characterNames.Select(n => GetCharacter(n)).Where(c => c != null).ToList();
             List<Character> remainingCharacters = AllCharacters.Values.Except(targetCharacters).OrderBy(c => c.Priority).ToList();
             targetCharacters.Reverse();
-            List<Character> sortedCharacters=remainingCharacters.Concat(targetCharacters).ToList();
+            List<Character> sortedCharacters = remainingCharacters.Concat(targetCharacters).ToList();
             SortCharacters(sortedCharacters);
         }
         private void SortCharacters(List<Character> charactersSortingOrder)
         {
             int i = 0;
-            foreach(Character character in charactersSortingOrder)
+            foreach (Character character in charactersSortingOrder)
             {
                 character.Root.SetSiblingIndex(Interlocked.Increment(ref i));
             }

@@ -1,6 +1,4 @@
 using GALGAME;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using UnityEngine;
@@ -17,8 +15,8 @@ public class SLPage : MenuPage
     private string SavePath => GalSaveFile.FileSavePath;
     [field: SerializeField]
     public SLSlot[] Slots { get; private set; }
-    [field:SerializeField]
-    public Texture EmptyFileTexture {  get; private set; }
+    [field: SerializeField]
+    public Texture EmptyFileTexture { get; private set; }
 
     private void Awake()
     {
@@ -41,7 +39,7 @@ public class SLPage : MenuPage
         {
             SLSlot slot = Slots[i];
             int slotIndex = pageStartingSlotIndex + i;
-            
+
             if (slotIndex < MaxSlotIndex)
             {
                 slot.Root.SetActive(true);
@@ -49,7 +47,7 @@ public class SLPage : MenuPage
                 slot.FileSavePath = Path.Combine(SavePath, slotIndex.ToString()) + GalSaveFile.ID_DataFileType;
                 slot.ScreenShotSavePath = Path.Combine(SavePath, slotIndex.ToString()) + GalSaveFile.ID_ScreenshotFileType;
                 slot.GenerateDetails(CurrentFuction);
-}
+            }
             else
             {
                 slot.Root.SetActive(false);

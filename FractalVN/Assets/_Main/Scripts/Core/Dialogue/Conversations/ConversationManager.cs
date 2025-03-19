@@ -1,10 +1,9 @@
+using CHARACTERS;
+using COMMANDS;
+using DIALOGUE.LogicalLine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using COMMANDS;
-using CHARACTERS;
-using DIALOGUE.LogicalLine;
 namespace DIALOGUE
 {
     /// <summary>
@@ -12,14 +11,14 @@ namespace DIALOGUE
     /// </summary>
     public class ConversationManager
     {
-        
+
         #region 属性/Property
         public DialogueSystem DialogueSystem => DialogueSystem.Instance;
         public TextArchitect TextArchitect { get; }
-        
+
         public Conversation TopConversation => ConversationQueue.IsEmpty ? null : ConversationQueue.Top;
         public int TopProgress => ConversationQueue.IsEmpty ? -1 : ConversationQueue.Top.Progress;
-        
+
         public bool IsRunning => Process != null;
         public bool IsOnLogicalLine { get; private set; } = false;
         public bool IsWaitingSegmentTimer { get; private set; } = false;
@@ -44,7 +43,7 @@ namespace DIALOGUE
         }
         private void OnUserPromptNext()
         {
-            if(AllowUserPrompt)
+            if (AllowUserPrompt)
             {
                 UserPrompt = true;
             }
@@ -64,7 +63,7 @@ namespace DIALOGUE
                 Enqueue(conversation);
             }
             //RunningConversation作为协程运行
-            Process = DialogueSystem.StartCoroutine(RunningConversation()); 
+            Process = DialogueSystem.StartCoroutine(RunningConversation());
             return Process;
         }
         /// <summary>
@@ -72,7 +71,7 @@ namespace DIALOGUE
         /// </summary>
         public void StopConversation()
         {
-            if(!IsRunning)
+            if (!IsRunning)
             {
                 return;
             }
@@ -86,7 +85,7 @@ namespace DIALOGUE
         /// <returns></returns>
         IEnumerator RunningConversation()
         {
-            while(!ConversationQueue.IsEmpty)
+            while (!ConversationQueue.IsEmpty)
             {
                 Conversation currentConversation = TopConversation;
                 if (currentConversation.HasReachedEnd)
@@ -95,7 +94,7 @@ namespace DIALOGUE
                     continue;
                 }
                 string rawLine = currentConversation.CurrentDialogueLine;
-                if (string.IsNullOrWhiteSpace(rawLine)) 
+                if (string.IsNullOrWhiteSpace(rawLine))
                 {
                     TryAdvanceConversation(currentConversation);
                     continue;
@@ -129,7 +128,7 @@ namespace DIALOGUE
             }
             Process = null;
         }
-        
+
         /// <summary>
         /// 运行行对话
         /// </summary>
@@ -138,7 +137,7 @@ namespace DIALOGUE
         IEnumerator RunDialogueLine(DialogueLine line)
         {
             //确认说话者
-            if (line.HasSpeaker) 
+            if (line.HasSpeaker)
             {
                 if (line.SpeakerData.Name.ToLower() == "narrator")
                 {
@@ -169,9 +168,9 @@ namespace DIALOGUE
         IEnumerator RunCommandsLine(DialogueLine line)
         {
             List<CommandData.Command> commands = line.CommandsData.Commands;
-            foreach(CommandData.Command command in commands)
+            foreach (CommandData.Command command in commands)
             {
-                if (command.WaitForCompletion || command.Name == "wait") 
+                if (command.WaitForCompletion || command.Name == "wait")
                 {
                     CoroutineWrapper cw = CommandManager.Instance.Execute(command.Name, command.Arguments);
                     //用于用户介入
@@ -190,7 +189,7 @@ namespace DIALOGUE
                 {
                     CommandManager.Instance.Execute(command.Name, command.Arguments);
                 }
-                
+
             }
             //Debug.Log(line.commandsData);
             yield return null;
@@ -207,14 +206,14 @@ namespace DIALOGUE
             //判断为添加或者更新
             if (!append)
             {
-                
+
                 TextArchitect.Build(dialogue);
             }
             else
             {
                 TextArchitect.Append(dialogue);
             }
-            
+
             //直到对话构建结束再停止协程
             if (TextArchitect.IsBuilding)
             {
@@ -232,11 +231,11 @@ namespace DIALOGUE
         /// <returns></returns>
         IEnumerator BuildLineSegments(DialogueData line)
         {
-            for(int t = 0; t < line.Segments.Count; t++)
+            for (int t = 0; t < line.Segments.Count; t++)
             {
                 DialogueData.DialogueSegment segment = line.Segments[t];
                 yield return WaitForSegmentSignal(segment);
-                yield return BuildDialogue(segment.Dialogue,segment.AppendText);
+                yield return BuildDialogue(segment.Dialogue, segment.AppendText);
             }
         }
         /// <summary>
@@ -246,7 +245,7 @@ namespace DIALOGUE
         /// <returns></returns>
         IEnumerator WaitForSegmentSignal(DialogueData.DialogueSegment segment)
         {
-            switch(segment.StartSignal)
+            switch (segment.StartSignal)
             {
                 case DialogueData.DialogueSegment.StartSignalTypes.C:
                     yield return WaitForUserInput();
@@ -278,7 +277,7 @@ namespace DIALOGUE
         IEnumerator WaitForUserInput()
         {
             DialogueSystem.DialoguePrompt.Show();
-            while(!UserPrompt)
+            while (!UserPrompt)
             {
                 yield return null;
             }
@@ -288,8 +287,8 @@ namespace DIALOGUE
         private void HandleSpeakerLogic(SpeakerData data)
         {
             bool characterCreated = (data.MakeCharacterEnter || data.IsCastingExpressions || data.IsCastingPosition);
-            Character character = CharacterManager.Instance.GetCharacter(data.Name,characterCreated);
-            if (data.MakeCharacterEnter && !character.IsShowing) 
+            Character character = CharacterManager.Instance.GetCharacter(data.Name, characterCreated);
+            if (data.MakeCharacterEnter && !character.IsShowing)
             {
                 character.Show();
             }
@@ -305,7 +304,7 @@ namespace DIALOGUE
 
             if (data.IsCastingExpressions)
             {
-                foreach(var (layer, expression) in data.CastExpression)
+                foreach (var (layer, expression) in data.CastExpression)
                 {
                     character.OnReceiveCastingExpression(layer, expression);
                 }

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,7 +8,7 @@ public class GraphicPanel
     #region ÊôÐÔ/Property
     [SerializeField]
     private string _PanelName = "";
-    public string PanelName=> _PanelName;
+    public string PanelName => _PanelName;
     public bool IsClear => GraphicLayers == null || GraphicLayers.All(l => l.CurrentGraphic == null);
     [SerializeField]
     private GameObject _Root = null;
@@ -24,7 +23,7 @@ public class GraphicPanel
     /// <returns></returns>
     public GraphicLayer GetGraphicLayer(int layerDepth, bool createIfNotExist = false)
     {
-        foreach(var layer in GraphicLayers)
+        foreach (var layer in GraphicLayers)
         {
             if (layer.LayerDepth == layerDepth)
             {
@@ -65,7 +64,7 @@ public class GraphicPanel
             GraphicLayers.Insert(index, graphicLayer);
         }
 
-        foreach(var layer in GraphicLayers)
+        foreach (var layer in GraphicLayers)
         {
             layer.Panel.SetSiblingIndex(layer.LayerDepth);
         }
@@ -73,7 +72,7 @@ public class GraphicPanel
     }
     public void Clear(float blendSpeed = 1, Texture blendTexture = null, bool immediate = false)
     {
-        foreach(GraphicLayer layer in GraphicLayers)
+        foreach (GraphicLayer layer in GraphicLayers)
         {
             layer.Clear(blendSpeed, blendTexture, immediate);
         }

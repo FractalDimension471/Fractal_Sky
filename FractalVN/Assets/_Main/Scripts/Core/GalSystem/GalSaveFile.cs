@@ -2,11 +2,9 @@ using DIALOGUE;
 using DIALOGUE.LogicalLine;
 using HISTORY;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using UnityEngine;
 
 namespace GALGAME
@@ -16,12 +14,11 @@ namespace GALGAME
     {
         #region ÊôÐÔ/Property
         public static GalSaveFile ActiveFile { get; internal set; }
-        public static bool Encrypt { get; } = false;
+        public static bool Encrypt => ConfigData.Encrypt;
         public static string ID_DataFileType { get; } = ".fsd";
         public static string ID_ScreenshotFileType { get; } = ".jpg";
-        public static string ID_SaveFileFolderName { get; } = "SaveData";
-        
-        public static string FileSavePath => FilePaths.GetPath(FilePaths.RunTimePath, ID_SaveFileFolderName);
+
+        public static string FileSavePath => FilePaths.RunTimePath;
         public string FullDataFileSavePath => Path.Combine(FileSavePath, SlotIndex.ToString()) + ID_DataFileType;
         public string FullScreenshotFileSavePath => Path.Combine(FileSavePath, SlotIndex.ToString()) + ID_ScreenshotFileType;
         [field: SerializeField]
@@ -38,7 +35,7 @@ namespace GALGAME
         public HistoryState ActiveState { get; private set; }
         [field: SerializeField]
         public HistoryState[] HistoryLogs { get; private set; }
-        [field:SerializeField]
+        [field: SerializeField]
         public VariableData[] Variables { get; private set; }
         #endregion
         #region ·½·¨/Method
@@ -112,7 +109,7 @@ namespace GALGAME
         public void SetConversationData()
         {
             bool isFirstConversation = true;
-            foreach(var dataJSON in ActiveConversations)
+            foreach (var dataJSON in ActiveConversations)
             {
                 try
                 {
@@ -127,7 +124,7 @@ namespace GALGAME
                     {
                         var compressedData = JsonUtility.FromJson<CompressedData>(dataJSON);
                         //var compressedData=JsonConvert.DeserializeObject<CompressedData>(dataJSON);
-                        if (compressedData != null && compressedData.FileName != string.Empty) 
+                        if (compressedData != null && compressedData.FileName != string.Empty)
                         {
                             var file = Resources.Load<TextAsset>(compressedData.FileName);
                             int count = compressedData.EndIndex - compressedData.StartIndex + 1;
@@ -139,9 +136,9 @@ namespace GALGAME
                             Debug.LogError($"Cannot load conversation from invalid data: '{dataJSON}'");
                         }
                     }
-                    if (newConversation != null && newConversation.DialogueLines.Count > 0) 
+                    if (newConversation != null && newConversation.DialogueLines.Count > 0)
                     {
-                        if(isFirstConversation)
+                        if (isFirstConversation)
                         {
                             DialogueSystem.Instance.ConversationManager.StartConversation(newConversation);
                             isFirstConversation = false;
@@ -162,9 +159,9 @@ namespace GALGAME
         private VariableData[] GetVariableData()
         {
             List<VariableData> datas = new();
-            foreach(var database in VariableStore.Databases.Values)
+            foreach (var database in VariableStore.Databases.Values)
             {
-                foreach(var variable in database.Variables)
+                foreach (var variable in database.Variables)
                 {
                     string stringValue = variable.Value.Get().ToString();
                     VariableData data = new()
@@ -180,7 +177,7 @@ namespace GALGAME
         }
         private void SetVariableData()
         {
-            foreach(var variable in Variables)
+            foreach (var variable in Variables)
             {
                 string stringValue = variable.Value;
                 switch (variable.Type)
@@ -207,14 +204,14 @@ namespace GALGAME
                         }
                         break;
                     case "System.Double":
-                        if(double.TryParse(stringValue, out double doubleValue))
+                        if (double.TryParse(stringValue, out double doubleValue))
                         {
                             VariableStore.TrySetVariable(variable.Name, doubleValue, createIfNotExist: true);
                             continue;
                         }
                         break;
                     case "System.Char":
-                        if(char.TryParse(stringValue,out char charValue))
+                        if (char.TryParse(stringValue, out char charValue))
                         {
                             VariableStore.TrySetVariable(variable.Name, charValue, createIfNotExist: true);
                             continue;

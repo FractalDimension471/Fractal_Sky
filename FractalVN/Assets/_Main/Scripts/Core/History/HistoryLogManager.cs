@@ -1,5 +1,4 @@
 using HISTORY;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -21,16 +20,16 @@ public class HistoryLogManager : MonoBehaviour
     private HistoryManager HistoryManager => HistoryManager.Instance;
     private List<HistoryLog> Logs { get; } = new();
     private CanvasGroupController CgController { get; set; }
-    
+
     [SerializeField] private GameObject _LogPrefab;
     [SerializeField] private CanvasGroup _OverlayCanvas;
     [SerializeField] private CanvasGroup _PanelCG;
     [SerializeField] private Slider _LogScaleSlider;
-    
+
     private GameObject LogPrefab => _LogPrefab;
     private CanvasGroup OverlayCanvas => _OverlayCanvas;
     private CanvasGroup PanelCG => _PanelCG;
-    private Slider LogScaleSlider => _LogScaleSlider;    
+    private Slider LogScaleSlider => _LogScaleSlider;
 
     public bool IsOpen { get; private set; } = false;
     #endregion
@@ -139,7 +138,7 @@ public class HistoryLogManager : MonoBehaviour
     }
     public void Rebuild()
     {
-        foreach(var state in HistoryManager.CachedStates)
+        foreach (var state in HistoryManager.CachedStates)
         {
             CreateLog(state);
         }

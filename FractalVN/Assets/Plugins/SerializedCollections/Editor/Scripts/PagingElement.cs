@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEditor;
 using UnityEngine;
-using UnityEditor;
 
 namespace AYellowpaper.SerializedCollections.Editor
 {
@@ -59,7 +57,7 @@ namespace AYellowpaper.SerializedCollections.Editor
             Page = EditorGUI.IntField(inputRect, Page);
             GUI.Label(labelRect, "/" + PageCount.ToString());
         }
-        
+
         private void EnsureValidPageIndex()
         {
             _page = Mathf.Clamp(_page, 1, PageCount);

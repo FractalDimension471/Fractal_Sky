@@ -14,7 +14,7 @@ namespace CHARACTERS
         #region 属性/Property
         private float DefaultSpeed => DialogueSystem.Instance.TransitionSpeed;
         private float TransitionSpeedMultiplier { get; set; }
-        
+
         public int Layer { get; } = 0;
         public Image Renderer { get; private set; }
         public CanvasGroup RendererCG => Renderer.GetComponent<CanvasGroup>();
@@ -61,11 +61,11 @@ namespace CHARACTERS
         /// <returns></returns>
         public Coroutine TransitionSprite(Sprite sprite, float speed = 1)
         {
-            if(sprite==Renderer.sprite)
+            if (sprite == Renderer.sprite)
             {
                 return null;
             }
-            if(IsTransitioningLayer)
+            if (IsTransitioningLayer)
             {
                 CharacterManager.StopCoroutine(Co_transitioningLayer);
             }
@@ -87,7 +87,7 @@ namespace CHARACTERS
         /// <returns></returns>
         private Image CreateRenderer(Transform parent)
         {
-            Image newRenderer = Object.Instantiate(Renderer,parent);
+            Image newRenderer = Object.Instantiate(Renderer, parent);
             OldRenderers.Add(RendererCG);
             newRenderer.name = Renderer.name;
             Renderer = newRenderer;
@@ -97,7 +97,7 @@ namespace CHARACTERS
         }
         private Coroutine TryStarLevelingAlphas()
         {
-            if(IsLevelingAlpha)
+            if (IsLevelingAlpha)
             {
                 CharacterManager.StopCoroutine(Co_levelingAlpha);
             }
@@ -106,11 +106,11 @@ namespace CHARACTERS
         }
         private IEnumerator RunAlphaLeveling()
         {
-            while (RendererCG.alpha < 1 || OldRenderers.Any(oldCG => oldCG.alpha > 0)) 
+            while (RendererCG.alpha < 1 || OldRenderers.Any(oldCG => oldCG.alpha > 0))
             {
                 float levelingspeed = DefaultSpeed * TransitionSpeedMultiplier * Time.deltaTime;
                 RendererCG.alpha = Mathf.MoveTowards(RendererCG.alpha, 1, levelingspeed);
-                for(int i=OldRenderers.Count-1;i>=0;i--)
+                for (int i = OldRenderers.Count - 1; i >= 0; i--)
                 {
                     CanvasGroup oldCG = OldRenderers[i];
                     oldCG.alpha = Mathf.MoveTowards(oldCG.alpha, 0, levelingspeed);
@@ -131,7 +131,7 @@ namespace CHARACTERS
         public void SetColor(Color color)
         {
             Renderer.color = color;
-            foreach(CanvasGroup oldCG in OldRenderers)
+            foreach (CanvasGroup oldCG in OldRenderers)
             {
                 oldCG.GetComponent<Image>().color = color;
             }
@@ -167,7 +167,7 @@ namespace CHARACTERS
         {
             Color oldColor = Renderer.color;
             List<Image> oldImages = new List<Image>();
-            foreach(CanvasGroup oldCG in OldRenderers)
+            foreach (CanvasGroup oldCG in OldRenderers)
             {
                 oldImages.Add(oldCG.GetComponent<Image>());
             }
@@ -176,9 +176,9 @@ namespace CHARACTERS
             {
                 colorPercent += DefaultSpeed * speedMultiplier * Time.deltaTime;
                 Renderer.color = Color.Lerp(oldColor, color, colorPercent);
-                foreach(Image oldImage in oldImages)
+                foreach (Image oldImage in oldImages)
                 {
-                    if(oldImage != null)
+                    if (oldImage != null)
                     {
                         oldImage.color = Renderer.color;
                     }
@@ -243,11 +243,11 @@ namespace CHARACTERS
         private IEnumerator FacingDirection(bool faceLeft, float speedMultiplier, bool immediate)
         {
             float xScale = faceLeft ? 1 : -1;
-            Vector3 newScale= new Vector3(xScale, 1, 1);
+            Vector3 newScale = new Vector3(xScale, 1, 1);
             if (!immediate)
             {
                 Image newRenderer = CreateRenderer(Renderer.transform.parent);
-                newRenderer.transform.localScale= newScale;
+                newRenderer.transform.localScale = newScale;
                 TransitionSpeedMultiplier = speedMultiplier;
                 TryStarLevelingAlphas();
                 //等待完成

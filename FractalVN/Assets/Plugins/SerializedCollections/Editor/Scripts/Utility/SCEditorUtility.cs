@@ -1,11 +1,11 @@
-﻿using System;
+﻿using AYellowpaper.SerializedCollections.Editor.Data;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using UnityEditor;
-using System.Linq;
-using AYellowpaper.SerializedCollections.Editor.Data;
 using UnityEngine;
-using System.Collections;
 
 namespace AYellowpaper.SerializedCollections.Editor
 {
@@ -105,7 +105,7 @@ namespace AYellowpaper.SerializedCollections.Editor
                 var methodInfo = classType.GetMethod("GetFieldInfoFromProperty", BindingFlags.Static | BindingFlags.NonPublic);
                 var parameters = new object[] { property, null };
                 methodInfo.Invoke(null, parameters);
-                type = (Type) parameters[1];
+                type = (Type)parameters[1];
                 return true;
             }
             catch
@@ -114,24 +114,24 @@ namespace AYellowpaper.SerializedCollections.Editor
                 return false;
             }
         }
-        
+
         internal static float DoHorizontalScale(Rect rect, float value)
         {
             var controlId = GUIUtility.GetControlID(FocusType.Passive);
             var isMovingMouse = Event.current.type == EventType.MouseDrag;
             DoButtonControl(rect, controlId, false, false, GUIContent.none, GUIStyle.none);
-            
+
             if (controlId == GUIUtility.hotControl && isMovingMouse)
             {
                 value += Event.current.delta.x;
                 GUI.changed = true;
             }
-            
+
             EditorGUIUtility.AddCursorRect(rect, MouseCursor.ResizeHorizontal);
 
             return value;
         }
-        
+
         internal static bool DoButtonControl(Rect rect, int id, bool on, bool hover, GUIContent content, GUIStyle style)
         {
             Event current = Event.current;
@@ -233,7 +233,7 @@ namespace AYellowpaper.SerializedCollections.Editor
                 return type.BaseType.GetFieldRecursive(name, bindingFlags);
             return fieldInfo;
         }
-        
+
         private static PropertyInfo GetPropertyRecursive(this Type type, string name, BindingFlags bindingFlags)
         {
             var propertyInfo = type.GetProperty(name, bindingFlags);

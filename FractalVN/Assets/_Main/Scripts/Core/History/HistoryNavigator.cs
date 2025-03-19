@@ -1,6 +1,5 @@
 using DIALOGUE;
 using HISTORY;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -11,7 +10,7 @@ public class HistoryNavigator : MonoBehaviour
     [field: SerializeField]
     private int Progress { get; set; }
     [field: SerializeField]
-    private bool IsViewingHistory { get; set; }
+    public bool IsViewingHistory { get; private set; }
     private TextMeshProUGUI StatusText => DialogueSystem.StatusText;
 
     private HistoryManager HistoryManager => HistoryManager.Instance;
@@ -42,7 +41,7 @@ public class HistoryNavigator : MonoBehaviour
         }
 
         state.Load();
-        if(IsOnCachedState)
+        if (IsOnCachedState)
         {
             IsViewingHistory = false;
             DialogueSystem.PromptNext -= GoForward;
@@ -56,7 +55,7 @@ public class HistoryNavigator : MonoBehaviour
     }
     public void GoBack()
     {
-        if (States.Count == 0 || (IsViewingHistory && Progress == 0) || !CanNavigate) 
+        if (States.Count == 0 || (IsViewingHistory && Progress == 0) || !CanNavigate)
         {
             return;
         }

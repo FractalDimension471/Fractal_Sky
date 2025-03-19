@@ -1,7 +1,6 @@
 using DIALOGUE.LogicalLine;
 using GALGAME;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -21,7 +20,7 @@ public class TagManager
     #region ·½·¨
     public static string Inject(string text, bool injectTags = true, bool injectVariables = true)
     {
-        if(injectTags)
+        if (injectTags)
         {
             text = InjectTags(text);
         }
@@ -50,7 +49,7 @@ public class TagManager
         var matches = Regex.Matches(value, VariableStore.R_Variables);
         var matchList = matches.Cast<Match>().ToList();
 
-        for (int i = matchList.Count-1; i >=0; Interlocked.Decrement(ref i))
+        for (int i = matchList.Count - 1; i >= 0; Interlocked.Decrement(ref i))
         {
             var match = matchList[i];
             string variableName = match.Value.TrimStart(VariableStore.ID_Variable, '!');
@@ -65,7 +64,7 @@ public class TagManager
                 Debug.LogError($"Variable '{variableName}' cannot be found!");
                 continue;
             }
-            if(variableValue is bool boolValue && negate)
+            if (variableValue is bool boolValue && negate)
             {
                 variableValue = !boolValue;
             }

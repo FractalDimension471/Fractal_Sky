@@ -1,12 +1,12 @@
-using UnityEngine;
 using CHARACTERS;
 using TMPro;
+using UnityEngine;
 namespace DIALOGUE
 {
     /// <summary>
     /// 可视化对话系统设置
     /// </summary>
-    [CreateAssetMenu(fileName ="Dialogue System Configuration",menuName ="Dialogue System/Dialogue Configuration Asset")]
+    [CreateAssetMenu(fileName = "Dialogue System Configuration", menuName = "Dialogue System/Dialogue Configuration Asset")]
     public class DialogueSystemConfigurationSO : ScriptableObject
     {
         //CharacterConfigSO是DialogueSystemConfigurationSO的字段

@@ -1,7 +1,5 @@
 using System;
-using System.IO;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -17,6 +15,7 @@ namespace COMMANDS
         private static string[] ID_BlendTexture { get; } = { "/b", "/blend" };
         private static string[] ID_UseAudio { get; } = { "/a", "/audio" };
         private static string[] ID_Media { get; } = { "/m", "/media" };
+        private static string[] ID_CG { get; } = { "/cg" };
         #endregion
         #region 方法/Method
         new public static void Extend(CommandDatabase database)
@@ -27,7 +26,7 @@ namespace COMMANDS
         private static string GetGraphicPath(string[] rootPaths, string graphicName)
         {
             return FilePaths.GetPath(rootPaths, graphicName);
-        }  
+        }
         private static IEnumerator SetLayerMedia(string[] data)
         {
             string graphicPath;
@@ -45,6 +44,7 @@ namespace COMMANDS
             }
             parameters.TryGetValue(ID_Layer, out int layer, 0);
             parameters.TryGetValue(ID_Media, out string mediaName, string.Empty);
+            parameters.TryGetValue(ID_CG, out bool isCG, false);
             parameters.TryGetValue(ID_Immediate, out bool immediate, false);
             if (!immediate)
             {
@@ -53,7 +53,15 @@ namespace COMMANDS
             parameters.TryGetValue(ID_BlendTexture, out string blendTextureName, string.Empty);
             parameters.TryGetValue(ID_UseAudio, out bool useAudio, false);
             //加载图像
-            graphicPath = GetGraphicPath(FilePaths.DefaultImagePaths, mediaName);
+            if (isCG)
+            {
+                graphicPath = GetGraphicPath(FilePaths.DefaultGalleryPaths, mediaName);
+            }
+            else
+            {
+                graphicPath = GetGraphicPath(FilePaths.DefaultImagePaths, mediaName);
+            }
+
             UnityEngine.Object graphic = Resources.Load<Texture>(graphicPath);
 
             if (graphic == null)
@@ -96,7 +104,7 @@ namespace COMMANDS
 
             Texture blendTexture = null;
             GraphicPanel panel;
-            
+
             //获取参数
             var parameters = ConvertDataToParameters(data);
             parameters.TryGetValue(ID_Panel, out string panelName);
@@ -132,8 +140,8 @@ namespace COMMANDS
             }
             yield return null;
         }
-        
-        
+
+
         #endregion
     }
 }

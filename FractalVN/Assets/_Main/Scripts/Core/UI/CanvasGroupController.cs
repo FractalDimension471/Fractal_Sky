@@ -1,15 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DIALOGUE;
-using static UnityEngine.Rendering.DebugUI;
+using System.Collections;
+using UnityEngine;
 
 public class CanvasGroupController
 {
     #region ÊôÐÔ/Property
     private MonoBehaviour Owner { get; set; }
-    private CanvasGroup RootCG {  get; set; }
-    private Coroutine Co_showing {  get; set; }
+    private CanvasGroup RootCG { get; set; }
+    private Coroutine Co_showing { get; set; }
     private Coroutine Co_hiding { get; set; }
 
     public bool IsShowing => Co_showing != null;

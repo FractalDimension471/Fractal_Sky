@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Audio;
 public class AudioManager : MonoBehaviour
@@ -14,9 +12,9 @@ public class AudioManager : MonoBehaviour
     public static float C_MuteVloume { get; } = -80f;
 
     public Dictionary<int, AudioChannel> Channels { get; } = new();
-    [field:SerializeField]
-    public AudioMixerGroup MainMixer {  get; private set; }
-    [field:SerializeField]
+    [field: SerializeField]
+    public AudioMixerGroup MainMixer { get; private set; }
+    [field: SerializeField]
     public AudioMixerGroup MusicMixer { get; private set; }
     [field: SerializeField]
     public AudioMixerGroup SoundMixer { get; private set; }
@@ -25,8 +23,9 @@ public class AudioManager : MonoBehaviour
     [field: SerializeField]
     public AnimationCurve AudioNormalizeCurve { get; private set; }
 
+    public Dictionary<string, AudioSource> CachedSounds { get; } = new();
+    public AudioSource[] AllSound => SoundRoot.GetComponentsInChildren<AudioSource>();
     private Transform SoundRoot { get; set; }
-
     private static string ID_SoundParentName { get; } = "Sound";
     public static float C_TrackTransitionSpeed { get; } = 1f;
 
@@ -57,13 +56,19 @@ public class AudioManager : MonoBehaviour
             Debug.LogError($"Can not load audio file '{filePath}'!");
             return null;
         }
-        return PlaySound(audioClip, audioMixer, volume, pitch, loop);
+        return PlaySound(audioClip, audioMixer, volume, pitch, loop, filePath);
     }
-    public AudioSource PlaySound(AudioClip audioClip, AudioMixerGroup audioMixer = null, float volume = 1, float pitch = 1, bool loop = false)
+    public AudioSource PlaySound(AudioClip audioClip, AudioMixerGroup audioMixer = null, float volume = 1, float pitch = 1, bool loop = false, string filePath = "")
     {
+
         AudioSource soundSource = new GameObject($"Sound - [{audioClip.name}]").AddComponent<AudioSource>();
         soundSource.transform.SetParent(SoundRoot);
         soundSource.clip = audioClip;
+
+        if (loop)
+        {
+            CachedSounds.Add(filePath, soundSource);
+        }
 
         if (audioMixer == null)
         {
@@ -95,7 +100,7 @@ public class AudioManager : MonoBehaviour
     {
         soundName = soundName.ToLower();
         AudioSource[] audioSources = SoundRoot.GetComponentsInChildren<AudioSource>();
-        foreach(AudioSource audioSource in audioSources)
+        foreach (AudioSource audioSource in audioSources)
         {
             if (audioSource.clip.name.ToLower() == soundName)
             {
@@ -135,9 +140,9 @@ public class AudioManager : MonoBehaviour
     public void StopMusic(string musicName)
     {
         musicName = musicName.ToLower();
-        foreach(AudioChannel channel in Channels.Values)
+        foreach (AudioChannel channel in Channels.Values)
         {
-            if (channel.ActiveTrack!=null && channel.ActiveTrack.Name.ToLower() == musicName)
+            if (channel.ActiveTrack != null && channel.ActiveTrack.Name.ToLower() == musicName)
             {
                 channel.StopTrack();
                 return;
@@ -146,7 +151,7 @@ public class AudioManager : MonoBehaviour
     }
     public void StopMusic()
     {
-        foreach(AudioChannel channel in Channels.Values)
+        foreach (AudioChannel channel in Channels.Values)
         {
             channel.StopTrack();
         }
@@ -165,6 +170,25 @@ public class AudioManager : MonoBehaviour
             return channel;
         }
         return channel;
+    }
+    public void StopAll()
+    {
+        StopAllSounds();
+        StopAllTracks();
+    }
+    public void StopAllTracks()
+    {
+        foreach (var channel in Channels.Values)
+        {
+            channel.StopTrack();
+        }
+    }
+    public void StopAllSounds()
+    {
+        foreach (AudioSource audioSource in AllSound)
+        {
+            Destroy(audioSource.gameObject);
+        }
     }
     #endregion
 }

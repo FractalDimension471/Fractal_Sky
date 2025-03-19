@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 namespace DIALOGUE
 {
 
@@ -25,10 +23,10 @@ namespace DIALOGUE
         /// <param name="nameToShow"></param>
         public void SetVisibility(bool isvisible = true, string nameToShow = "")
         {
-            if(isvisible)
+            if (isvisible)
             {
                 Root.SetActive(true);
-                if (nameToShow !=string.Empty)
+                if (nameToShow != string.Empty)
                 {
                     NameText.text = nameToShow;
                 }

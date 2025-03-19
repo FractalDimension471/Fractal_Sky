@@ -1,6 +1,5 @@
-using UnityEngine;
 using TMPro;
-using System.Collections;
+using UnityEngine;
 namespace DIALOGUE
 {
     //确保Unity内的属性列表可见
@@ -12,7 +11,7 @@ namespace DIALOGUE
         //声明对话框包含的内容
         [SerializeField]
         private GameObject _RootContainer;
-        public GameObject RootContainer=> _RootContainer;
+        public GameObject RootContainer => _RootContainer;
 
         [SerializeField]
         private TextMeshProUGUI _DialogueText;

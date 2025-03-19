@@ -1,18 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class MenuPanelManager : MonoBehaviour
 {
-    public static MenuPanelManager Instance {  get; private set; }
+    public static MenuPanelManager Instance { get; private set; }
     [field: SerializeField]
     public CanvasGroup RootCanvas { get; private set; }
     private CanvasGroupController CGcontroller { get; set; }
-    [field:SerializeField]
-    public MenuPage[] Pages {  get; private set; }
+    [field: SerializeField]
+    public MenuPage[] Pages { get; private set; }
     private MenuPage ActivePage { get; set; }
     private bool IsMenuOpen { get; set; } = false;
+    private UIConfirmationPage ConfirmationPage => UIConfirmationPage.Instance;
     private void Awake()
     {
         Instance = this;
@@ -33,7 +32,7 @@ public class MenuPanelManager : MonoBehaviour
             ShowMenu();
         }
 
-        if (page == null) 
+        if (page == null)
         {
             return;
         }
@@ -69,6 +68,14 @@ public class MenuPanelManager : MonoBehaviour
         var page = GetPage(MenuPage.PageType.Help);
         OpenPage(page);
     }
+    public void OpenGalleryPage()
+    {
+        var page = GetPage(MenuPage.PageType.Gallery);
+        var currentPage = page.Root.GetComponent<GalleryMenu>();
+        currentPage.Initialize();
+        OpenPage(page);
+
+    }
     public void ShowMenu()
     {
         IsMenuOpen = true;
@@ -83,9 +90,20 @@ public class MenuPanelManager : MonoBehaviour
     }
     public void BackToTitle()
     {
+        ConfirmationPage.Show("Back to main menu?", new UIConfirmationPage.ConfirmationButton("Yes", BackingToTitle), new UIConfirmationPage.ConfirmationButton("No", null));
+    }
+    private void BackingToTitle()
+    {
+        ConfigData.ActiveConfig.Save();
+        AudioManager.Instance.CachedSounds.Clear();
+        AudioManager.Instance.StopAll();
         UnityEngine.SceneManagement.SceneManager.LoadScene(MainMenu.ID_StartScene);
     }
     public void QuitGame()
+    {
+        ConfirmationPage.Show("Quit the game?", new UIConfirmationPage.ConfirmationButton("Yes", QuittingGame), new UIConfirmationPage.ConfirmationButton("No", null));
+    }
+    private void QuittingGame()
     {
         Application.Quit();
     }

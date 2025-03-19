@@ -1,14 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System;
-using Unity.VisualScripting;
 public class InputPanel : MonoBehaviour
 {
     #region  Ù–‘/Property
-    public static InputPanel Instance {  get; private set; }
+    public static InputPanel Instance { get; private set; }
     private CanvasGroupController CgController { get; set; }
     [SerializeField] private CanvasGroup _PanelCG;
     [SerializeField] private TMP_InputField _InputField;
@@ -29,7 +25,7 @@ public class InputPanel : MonoBehaviour
     }
     public void Initialize()
     {
-        CgController.Alpha = 0f; 
+        CgController.Alpha = 0f;
         CgController.SetCanvasStatus(false);
 
         _AcceptButton.gameObject.SetActive(false);
@@ -54,7 +50,7 @@ public class InputPanel : MonoBehaviour
     }
     public void OnAcceptInput()
     {
-        if(_InputField.text == string.Empty)
+        if (_InputField.text == string.Empty)
         {
             return;
         }

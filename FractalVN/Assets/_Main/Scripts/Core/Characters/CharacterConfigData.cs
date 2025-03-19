@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
-using DIALOGUE;
 using AYellowpaper.SerializedCollections;
+using DIALOGUE;
+using TMPro;
+using UnityEngine;
 
 namespace CHARACTERS
 {
@@ -15,26 +13,26 @@ namespace CHARACTERS
     {
         #region 属性/Property
         //定义角色基础信息
-        [field:SerializeField]
+        [field: SerializeField]
         public string Name { get; set; }
         [field: SerializeField]
-        public string Alias {  get; set; }
+        public string Alias { get; set; }
         [field: SerializeField]
-        public float NameFontSize {  get; set; }
+        public float NameFontSize { get; set; }
         [field: SerializeField]
-        public float DialogueFontSize {  get; set; }
+        public float DialogueFontSize { get; set; }
         [field: SerializeField]
-        public Character.CharacterType CharacterType {  get; set; }
+        public Character.CharacterType CharacterType { get; set; }
         //定义字体颜色
         [field: SerializeField]
-        public Color NameColor {  get; set; }
+        public Color NameColor { get; set; }
         [field: SerializeField]
         public Color DialogueColor { get; set; }
         //定义字体材质
         [field: SerializeField]
-        public TMP_FontAsset NameFont {  get; set; }
+        public TMP_FontAsset NameFont { get; set; }
         [field: SerializeField]
-        public TMP_FontAsset DialogueFont {  get; set; }
+        public TMP_FontAsset DialogueFont { get; set; }
         [SerializeField, SerializedDictionary("Path / ID", "Sprite")]
         private SerializedDictionary<string, Sprite> _sprites = new();
         public SerializedDictionary<string, Sprite> Sprites => _sprites;

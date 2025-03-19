@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,7 +23,7 @@ public class GraphicPanelManager : MonoBehaviour
     public GraphicPanel GetGraphicPanel(string name)
     {
         name = name.ToLower();
-        foreach(GraphicPanel graphicPanel in AllPanels)
+        foreach (GraphicPanel graphicPanel in AllPanels)
         {
             if (graphicPanel.PanelName.ToLower() == name)
             {

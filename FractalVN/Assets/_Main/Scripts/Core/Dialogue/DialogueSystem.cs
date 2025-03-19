@@ -1,8 +1,8 @@
+using CHARACTERS;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
-using CHARACTERS;
+using UnityEngine;
 namespace DIALOGUE
 {
     /// <summary>
@@ -28,7 +28,7 @@ namespace DIALOGUE
         [SerializeField]
         private CanvasGroup mainCanvas;
         public ConversationManager ConversationManager { get; private set; }
-        [field:SerializeField]
+        [field: SerializeField]
         private TextArchitect TextArchitect { get; set; }
         private CanvasGroupController CgController { get; set; }
         public AutoReader Reader { get; private set; }
@@ -42,13 +42,13 @@ namespace DIALOGUE
         [SerializeField]
         private DialogueContinuePrompt _DialoguePrompt;
         public DialogueContinuePrompt DialoguePrompt => _DialoguePrompt;
-        [field:SerializeField]
-        public TextMeshProUGUI StatusText {  get; set; }
+        [field: SerializeField]
+        public TextMeshProUGUI StatusText { get; set; }
         public delegate void DialogueSystemEvent();
         public event DialogueSystemEvent PromptNext;
         public event DialogueSystemEvent PromptClear;
 
-        
+
         #endregion
         #region ·½·¨/Method
 
@@ -81,7 +81,7 @@ namespace DIALOGUE
             NameContainer.SetNameColor(Config.defaultTextColor);
             NameContainer.SetNameFont(Config.defaultFont);
 
-            if(TryGetComponent(out AutoReader reader))
+            if (TryGetComponent(out AutoReader reader))
             {
                 Reader = reader;
                 Reader.Initialize(ConversationManager);
@@ -93,7 +93,7 @@ namespace DIALOGUE
         public void OnUserPromptNext()
         {
             PromptNext?.Invoke();
-            if (Reader != null && Reader.IsRunning && Reader.Auto) 
+            if (Reader != null && Reader.IsRunning && Reader.Auto)
             {
                 Reader.OnAutoButtomClicked();
             }
@@ -153,7 +153,7 @@ namespace DIALOGUE
         /// <param name="speakerName"></param>
         public void ShowSpeakerName(string speakerName = "")
         {
-            if (speakerName != string.Empty) 
+            if (speakerName != string.Empty)
             {
                 NameContainer.SetVisibility(true, speakerName);
             }
@@ -203,8 +203,8 @@ namespace DIALOGUE
             }
             yield return FunctionPanel.Instance.SetPanelStatus();
         }
-        public Coroutine Show(float speedMultiplier = 1f, bool immediate = false) => CgController.Show(speedMultiplier,immediate);
-        public Coroutine Hide(float speedMultiplier = 1f, bool immediate = false) => CgController.Hide(speedMultiplier,immediate);
+        public Coroutine Show(float speedMultiplier = 1f, bool immediate = false) => CgController.Show(speedMultiplier, immediate);
+        public Coroutine Hide(float speedMultiplier = 1f, bool immediate = false) => CgController.Hide(speedMultiplier, immediate);
         public void ChangeAutoModeStatus()
         {
             Reader.OnAutoButtomClicked();

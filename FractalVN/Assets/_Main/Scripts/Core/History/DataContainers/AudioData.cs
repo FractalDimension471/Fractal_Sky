@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,14 +7,17 @@ namespace HISTORY
     public class AudioData
     {
         #region  Ù–‘/Property
+
         [field: SerializeField]
-        public int ChannelNumber {  get; set; }
+        public List<TrackData> Tracks { get; set; }
         [field: SerializeField]
-        public TrackData Track {  get; set; }
+        public List<SoundData> Sounds { get; set; }
 
         [System.Serializable]
         public class TrackData
         {
+            [field: SerializeField]
+            public int ChannelNumber { get; set; }
             [field: SerializeField]
             public string Name { get; set; }
             [field: SerializeField]
@@ -27,68 +29,105 @@ namespace HISTORY
             [field: SerializeField]
             public bool Loop { get; set; }
         }
+        [System.Serializable]
+        public class SoundData
+        {
+            [field: SerializeField]
+            public string Path { get; set; }
+            [field: SerializeField]
+            public float Volume { get; set; }
+            [field: SerializeField]
+            public float Pitch { get; set; }
+        }
         #endregion
         #region ∑Ω∑®/Method
-        public AudioData(AudioChannel channel)
+        private static List<TrackData> GetTrackDatas()
         {
-            if (channel.ActiveTrack == null)
+            var targetTracks = new List<TrackData>();
+            foreach (var channel in AudioManager.Instance.Channels)
             {
-                return;
-            }
-            ChannelNumber = channel.ChannelIndex;
-            var currentTrack = channel.ActiveTrack;
-
-            Track = new()
-            {
-                Name = currentTrack.Name,
-                Path = currentTrack.Path,
-                Volume = currentTrack.CapVolume,
-                Pitch = currentTrack.Pitch,
-                Loop = currentTrack.Loop
-            };
-        }
-
-        public static List<AudioData> Capture()
-        {
-            List<AudioData> datas = new();
-            foreach(var channel in AudioManager.Instance.Channels)
-            {
-                if(channel.Value.ActiveTrack == null)
+                var track = channel.Value.ActiveTrack;
+                if (track == null)
                 {
                     continue;
                 }
-                AudioData data = new(channel.Value);
-                datas.Add(data);
+                TrackData data = new()
+                {
+                    ChannelNumber = channel.Value.ChannelIndex,
+                    Name = track.Name,
+                    Path = track.Path,
+                    Pitch = track.Pitch,
+                    Volume = track.CapVolume,
+                    Loop = track.Loop
+                };
+                targetTracks.Add(data);
             }
-            return datas;
+            return targetTracks;
         }
-        public static void Apply(List<AudioData> datas)
+        private static List<SoundData> GetSoundDatas()
+        {
+            var targetSounds = new List<SoundData>();
+            var cachedSounds = AudioManager.Instance.CachedSounds;
+            foreach (var sound in cachedSounds)
+            {
+                SoundData data = new()
+                {
+                    Path = sound.Key,
+                    Pitch = sound.Value.pitch,
+                    Volume = sound.Value.volume
+                };
+                targetSounds.Add(data);
+            }
+            return targetSounds;
+        }
+        public static AudioData Capture()
+        {
+            var data = new AudioData
+            {
+                Tracks = GetTrackDatas(),
+                Sounds = GetSoundDatas()
+            };
+            return data;
+        }
+        public static void Apply(AudioData data)
+        {
+            ApplyTracks(data.Tracks);
+            ApplySounds(data.Sounds);
+        }
+        private static void ApplyTracks(List<TrackData> datas)
         {
             List<int> cache = new();
-            foreach(var data in datas)
+            foreach (var trackData in datas)
             {
-                AudioChannel channel = AudioManager.Instance.GetChannel(data.ChannelNumber, true);
-                if(channel.ActiveTrack == null || channel.ActiveTrack.Name != data.Track.Name)
+                AudioChannel channel = AudioManager.Instance.GetChannel(trackData.ChannelNumber, true);
+                if (channel.ActiveTrack == null || channel.ActiveTrack.Name != trackData.Name)
                 {
-                    AudioClip audio = HistoryCache.LoadAudio(data.Track.Path);
-                    if(audio != null)
+                    AudioClip audio = HistoryCache.LoadAudio(trackData.Path);
+                    if (audio != null)
                     {
                         channel.StopTrack(true);
-                        channel.PlayTrack(audio, data.Track.Loop, data.Track.Volume, data.Track.Volume, data.Track.Pitch, data.Track.Path);
+                        channel.PlayTrack(audio, trackData.Loop, trackData.Volume, trackData.Volume, trackData.Pitch, trackData.Path);
                     }
                     else
                     {
-                        Debug.LogWarning($"Cannot load audio track '{data.Track.Path}'");
+                        Debug.LogWarning($"Cannot load audio track '{trackData.Path}'");
                     }
                 }
-                cache.Add(data.ChannelNumber);
+                cache.Add(trackData.ChannelNumber);
             }
-            foreach(var channel in AudioManager.Instance.Channels)
+            foreach (var channel in AudioManager.Instance.Channels)
             {
                 if (!cache.Contains(channel.Value.ChannelIndex))
                 {
                     channel.Value.StopTrack(true);
                 }
+            }
+        }
+        private static void ApplySounds(List<SoundData> datas)
+        {
+            foreach (var soundData in datas)
+            {
+                AudioManager.Instance.PlaySound(filePath: soundData.Path, volume: soundData.Volume, pitch: soundData.Pitch, loop: true);
             }
         }
         #endregion

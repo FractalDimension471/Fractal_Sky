@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
-using UnityEngine;
 
 namespace DIALOGUE
 {
@@ -10,8 +8,8 @@ namespace DIALOGUE
         #region  Ù–‘/Property
         public List<string> DialogueLines { get; }
         public int Progress { get; internal set; }
-        public int FileStartIndex {  get; private set; }
-        public int FileEndIndex {  get; private set; }
+        public int FileStartIndex { get; private set; }
+        public int FileEndIndex { get; private set; }
         public int Count => DialogueLines.Count;
         public string CurrentDialogueLine => DialogueLines[Progress];
         public string File { get; private set; }
@@ -28,7 +26,7 @@ namespace DIALOGUE
             {
                 fileStartIndex = 0;
             }
-            if (fileEndIndex == -1) 
+            if (fileEndIndex == -1)
             {
                 fileEndIndex = lines.Count - 1;
             }

@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.IO;
+using UnityEngine;
 /// <summary>
 /// 文件路径
 /// </summary>
@@ -48,18 +48,18 @@ public class FilePaths
     {
         get
         {
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             {
                 return Path.Combine("Assets", "AppData");
             }
-            #else
+#else
             {
                 return Path.Combine(Application.persistentDataPath,"AppData");
             }     
-            #endif
+#endif
         }
     }
-#endregion
+    #endregion
     #region 方法/Method
     public static string GetPath(string[] defaultPaths, string name)
     {

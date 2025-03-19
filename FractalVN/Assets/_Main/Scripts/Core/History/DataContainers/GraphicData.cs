@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
-using static HISTORY.GraphicData;
 
 namespace HISTORY
 {
@@ -10,7 +8,7 @@ namespace HISTORY
     public class GraphicData
     {
         #region  Ù–‘/Property
-        [field:SerializeField]
+        [field: SerializeField]
         public string PanelName { get; set; }
         [field: SerializeField]
         public List<LayerData> LayerDatas { get; set; }
@@ -25,7 +23,7 @@ namespace HISTORY
             [field: SerializeField]
             public int Depth { get; set; }
             [field: SerializeField]
-            public bool IsVedio {  get; set; }
+            public bool IsVedio { get; set; }
             [field: SerializeField]
             public bool UseAudio { get; set; }
         }
@@ -35,7 +33,7 @@ namespace HISTORY
         {
             LayerDatas = new();
             PanelName = panel.PanelName;
-            foreach(var layer in panel.GraphicLayers)
+            foreach (var layer in panel.GraphicLayers)
             {
                 if (layer.CurrentGraphic == null)
                 {
@@ -76,7 +74,7 @@ namespace HISTORY
                 foreach (var layerData in data.LayerDatas)
                 {
                     var layer = panel.GetGraphicLayer(layerData.Depth, true);
-                    if (layer.CurrentGraphic == null || layer.CurrentGraphic.GraphicName != layerData.GraphicName) 
+                    if (layer.CurrentGraphic == null || layer.CurrentGraphic.GraphicName != layerData.GraphicName)
                     {
                         if (!layerData.IsVedio)
                         {
@@ -93,7 +91,7 @@ namespace HISTORY
                         else
                         {
                             VideoClip video = HistoryCache.LoadVideo(layerData.GraphicPath);
-                            if(video != null)
+                            if (video != null)
                             {
                                 layer.SetVideo(video, layerData.GraphicPath, immediate: true);
                             }

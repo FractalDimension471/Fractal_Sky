@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 public class AudioTrack
@@ -30,7 +28,7 @@ public class AudioTrack
         AudioSource.volume = startVolume;
         AudioSource.pitch = pitch;
         AudioSource.outputAudioMixerGroup = audioMixer;
-    }   
+    }
     private AudioSource CreateAudioSource()
     {
         GameObject go = new($"Track - [{Name}]");

@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Linq;
 using UnityEngine;
 using static DIALOGUE.LogicalLine.LogicLineUtilities.Expressions;
 
@@ -38,20 +36,20 @@ namespace DIALOGUE.LogicalLine
             }
             ProcessOperator(variableName, op, value);
         }
-        private void ProcessOperator(string variableName,string op, object value)
+        private void ProcessOperator(string variableName, string op, object value)
         {
             if (VariableStore.TryGetVariable(variableName, out var currentValue))
             {
                 ProcessOperatorOnVariable(variableName, op, value, currentValue);
             }
-            else if (op == "=") 
+            else if (op == "=")
             {
                 VariableStore.TryCreateVariable(variableName, value);
             }
         }
         private void ProcessOperatorOnVariable(string variableName, string op, object value, object currentValue)
         {
-            switch(op)
+            switch (op)
             {
                 case "=":
                     VariableStore.TrySetVariable(variableName, value);
@@ -74,13 +72,13 @@ namespace DIALOGUE.LogicalLine
 
             }
         }
-        private object ConcatenateOrAdd(object value,object currentValue)
+        private object ConcatenateOrAdd(object value, object currentValue)
         {
-            if(value is string)
+            if (value is string)
             {
                 return currentValue.ToString() + value;
             }
-            return Convert.ToDouble(currentValue)+ Convert.ToDouble(value);
+            return Convert.ToDouble(currentValue) + Convert.ToDouble(value);
         }
         private object OnDividedZero(object value, object currentValue)
         {
@@ -93,6 +91,6 @@ namespace DIALOGUE.LogicalLine
             }
             return l / r;
         }
-        
+
     }
 }

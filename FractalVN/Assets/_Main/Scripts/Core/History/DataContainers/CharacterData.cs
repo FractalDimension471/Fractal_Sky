@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using CHARACTERS;
 using System;
+using System.Collections.Generic;
 using System.Threading;
-using static UnityEngine.Rendering.DebugUI;
+using UnityEngine;
 
 namespace HISTORY
 {
@@ -19,22 +17,22 @@ namespace HISTORY
         [field: SerializeField]
         public string CastingName { get; set; } = "";
         [field: SerializeField]
-        public bool Visible {  get; set; }
+        public bool Visible { get; set; }
         [field: SerializeField]
         public bool Active { get; set; }
-        [field:SerializeField]
-        public bool FacingLeft {  get; set; }
+        [field: SerializeField]
+        public bool FacingLeft { get; set; }
         [field: SerializeField]
         public Color Color { get; set; }
         [field: SerializeField]
-        public int Priority {  get; set; }
+        public int Priority { get; set; }
         [field: SerializeField]
         public Vector2 Position { get; set; }
-        [field:SerializeField]
+        [field: SerializeField]
         public string AnimeJSON { get; set; }
         [field: SerializeField]
-        public string DataJSON {  get; set; }
-        [field:SerializeField]
+        public string DataJSON { get; set; }
+        [field: SerializeField]
         public CharacterConfiguration Configuration { get; set; }
 
         [System.Serializable]
@@ -43,19 +41,19 @@ namespace HISTORY
             [field: SerializeField]
             public string Name { get; set; }
             [field: SerializeField]
-            public string Alias {  get; set; }
-            [field:SerializeField]
+            public string Alias { get; set; }
+            [field: SerializeField]
             public Character.CharacterType CharacterType { get; set; }
             [field: SerializeField]
             public Color NameColor { get; set; }
             [field: SerializeField]
             public Color DialogueColor { get; set; }
             [field: SerializeField]
-            public string NameFont {  get; set; }
+            public string NameFont { get; set; }
             [field: SerializeField]
             public string DialogueFont { get; set; }
             [field: SerializeField]
-            public float NameFontSize {  get; set; }
+            public float NameFontSize { get; set; }
             [field: SerializeField]
             public float DialogueFontSize { get; set; }
         }
@@ -115,7 +113,7 @@ namespace HISTORY
                 NameColor = reference.NameColor,
                 DialogueColor = reference.DialogueColor,
                 NameFont = FilePaths.GetPath(FilePaths.DefaultFontPaths, reference.NameFont.name),
-                DialogueFont = FilePaths.GetPath(FilePaths.DefaultFontPaths,reference.DialogueFont.name),
+                DialogueFont = FilePaths.GetPath(FilePaths.DefaultFontPaths, reference.DialogueFont.name),
                 NameFontSize = reference.NameFontSize,
                 DialogueFontSize = reference.DialogueFontSize,
             };
@@ -123,10 +121,10 @@ namespace HISTORY
         public static List<CharacterData> Capture()
         {
             List<CharacterData> datas = new();
-            foreach(var c in CharacterManager.Instance.AllCharacters)
+            foreach (var c in CharacterManager.Instance.AllCharacters)
             {
                 Character character = c.Value;
-                if(!character.Visible)
+                if (!character.Visible)
                 {
                     continue;
                 }
@@ -144,7 +142,7 @@ namespace HISTORY
                     AnimeJSON = GetAnimeData(character),
                 };
 
-                switch(character.ConfigData.CharacterType)
+                switch (character.ConfigData.CharacterType)
                 {
                     case Character.CharacterType.Sprite:
                     case Character.CharacterType.SpriteSheet:
@@ -165,7 +163,7 @@ namespace HISTORY
         public static void Apply(List<CharacterData> datas)
         {
             List<string> cache = new();
-            foreach(var data in datas)
+            foreach (var data in datas)
             {
                 Character character = null;
 
@@ -179,7 +177,7 @@ namespace HISTORY
                     if (character == null)
                     {
                         string fullCastingName = $"{data.CharacterName}{CharacterManager.ID_ChracterCasting}{data.CastingName}";
-                        character=CharacterManager.Instance.CreateCharacter(fullCastingName);
+                        character = CharacterManager.Instance.CreateCharacter(fullCastingName);
                     }
                 }
                 character.DisplayName = data.CharacterName;
@@ -224,7 +222,7 @@ namespace HISTORY
                 }
                 cache.Add(character.Name);
             }
-            foreach(var c in CharacterManager.Instance.AllCharacters)
+            foreach (var c in CharacterManager.Instance.AllCharacters)
             {
                 Character character = c.Value;
                 if (!cache.Contains(character.Name))
@@ -236,12 +234,12 @@ namespace HISTORY
         private static void SetAnimeData(Character character, AnimeData data)
         {
             Animator animator = character.Animator;
-            foreach(var parameter in data.Parameters)
+            foreach (var parameter in data.Parameters)
             {
                 switch (parameter.Type)
                 {
                     case "Bool":
-                        if(bool.TryParse(parameter.Value, out bool boolValue))
+                        if (bool.TryParse(parameter.Value, out bool boolValue))
                         {
                             animator.SetBool(parameter.Name, boolValue);
                         }
@@ -251,7 +249,7 @@ namespace HISTORY
                         }
                         break;
                     case "Float":
-                        if(float.TryParse(parameter.Value, out float floatValue))
+                        if (float.TryParse(parameter.Value, out float floatValue))
                         {
                             animator.SetFloat(parameter.Name, floatValue);
                         }
@@ -261,7 +259,7 @@ namespace HISTORY
                         }
                         break;
                     case "Int":
-                        if(int.TryParse(parameter.Value,out int intValue))
+                        if (int.TryParse(parameter.Value, out int intValue))
                         {
                             animator.SetInteger(parameter.Name, intValue);
                         }
@@ -282,7 +280,7 @@ namespace HISTORY
                 if (sc.SpriteLayers[i].Renderer.sprite != null && sc.SpriteLayers[i].Renderer.sprite.name != layerData.Name)
                 {
                     Sprite sprite = sc.GetSprite(layerData.Name);
-                    if(sprite != null)
+                    if (sprite != null)
                     {
                         sc.SetSprite(sprite, i);
                     }
@@ -308,7 +306,7 @@ namespace HISTORY
             {
                 Parameters = new()
             };
-            foreach(var parameter in data.Parameters)
+            foreach (var parameter in data.Parameters)
             {
                 if (parameter.Type == "Trigger")
                 {
@@ -331,7 +329,7 @@ namespace HISTORY
                     case "Int":
                         animeParameter.Type = "Int";
                         animeParameter.Value = animator.GetInteger(parameter.Name).ToString();
-                        break; 
+                        break;
                 }
                 data.Parameters.Add(animeParameter);
             }
@@ -345,7 +343,7 @@ namespace HISTORY
                 LayerDatas = new()
             };
             CharacterSprite cs = character as CharacterSprite;
-            foreach(var layer in cs.SpriteLayers)
+            foreach (var layer in cs.SpriteLayers)
             {
                 SpriteData.LayerData layerData = new()
                 {

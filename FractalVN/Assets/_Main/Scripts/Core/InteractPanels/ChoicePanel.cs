@@ -1,11 +1,10 @@
+using DIALOGUE.LogicalLine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System.Threading;
-using System.Linq;
-using DIALOGUE.LogicalLine;
 public class ChoicePanel : MonoBehaviour
 {
     #region  Ù–‘/Property
@@ -22,18 +21,18 @@ public class ChoicePanel : MonoBehaviour
     [SerializeField] private VerticalLayoutGroup _ButtonLayoutGroup;
     [SerializeField] private GameObject _ChoiceButtonPrefab;
     [SerializeField] private TextMeshProUGUI _TitleText;
-    
+
     public ChoicePanelDecision LastDecision { get; private set; } = null;
     private struct ChoiceButton
     {
-        public Button Button {  get; set; }
-        public TextMeshProUGUI Title {  get; set; }
-        public LayoutElement Layout {  get; set; }
+        public Button Button { get; set; }
+        public TextMeshProUGUI Title { get; set; }
+        public LayoutElement Layout { get; set; }
     }
     private List<ChoiceButton> ChoiceButtons { get; set; }
     public bool IsWaitingOnUserMakingChoice { get; private set; } = false;
     public bool WaitingCountDown { get; internal set; } = false;
-    
+
     #endregion
     #region ∑Ω∑®/Method
     public class ChoicePanelDecision
@@ -66,7 +65,7 @@ public class ChoicePanel : MonoBehaviour
     {
         _TitleText.text = question;
         LastDecision = new(question, choices);
-        
+
         CgController.Show();
         CgController.SetCanvasStatus(true);
         IsWaitingOnUserMakingChoice = true;
@@ -78,7 +77,7 @@ public class ChoicePanel : MonoBehaviour
         CgController.Hide();
         CgController.SetCanvasStatus(false);
     }
-    
+
     private void OnAcceptedChoice(int index)
     {
         ChoiceLogic.IsWaitingCountDown = false;
@@ -106,7 +105,7 @@ public class ChoicePanel : MonoBehaviour
             WaitingCountDown = false;
         }
         float maxWidth = 0;
-        for (int i = 0; i < counter; Interlocked.Increment(ref i)) 
+        for (int i = 0; i < counter; Interlocked.Increment(ref i))
         {
             ChoiceButton choiceButton;
             if (i < ChoiceButtons.Count)
@@ -135,7 +134,7 @@ public class ChoicePanel : MonoBehaviour
         {
             choiceButton.Layout.preferredWidth = maxWidth;
         }
-        for(int i = 0; i < ChoiceButtons.Count; i++)
+        for (int i = 0; i < ChoiceButtons.Count; i++)
         {
             bool show = i < choices.Length;
             ChoiceButtons[i].Button.gameObject.SetActive(show);
@@ -148,7 +147,7 @@ public class ChoicePanel : MonoBehaviour
             int lines = choiceButton.Title.textInfo.lineCount;
             choiceButton.Layout.preferredHeight = lines * C_ButtonHeightPerLine;
         }
-        
+
     }
     #endregion
 }

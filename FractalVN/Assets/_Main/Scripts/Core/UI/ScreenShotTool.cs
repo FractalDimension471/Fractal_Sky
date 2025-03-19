@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -16,7 +14,7 @@ public class ScreenShotTool : MonoBehaviour
         RenderTexture renderTexture = RenderTexture.GetTemporary(width, height, 32);
         camera.targetTexture = renderTexture;
 
-        Texture2D screenShot = new(width,height,TextureFormat.ARGB32,false);
+        Texture2D screenShot = new(width, height, TextureFormat.ARGB32, false);
         camera.Render();
 
         RenderTexture.active = renderTexture;

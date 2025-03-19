@@ -1,7 +1,4 @@
 using COMMANDS;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 namespace DIALOGUE
 {
     /// <summary>
@@ -28,7 +25,7 @@ namespace DIALOGUE
         /// <param name="speaker"></param>
         /// <param name="dialogue"></param>
         /// <param name="commands"></param>
-        public DialogueLine(string rawLine,string speaker, string dialogue, string commands)
+        public DialogueLine(string rawLine, string speaker, string dialogue, string commands)
         {
             RawData = rawLine;
             SpeakerData = (string.IsNullOrWhiteSpace(speaker) ? null : new SpeakerData(speaker));

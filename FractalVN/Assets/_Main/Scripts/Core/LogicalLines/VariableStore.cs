@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -124,7 +123,7 @@ namespace DIALOGUE.LogicalLine
             (_, Database database, string variableName) = ExtractInfo(name);
             if (!database.Variables.ContainsKey(variableName))
             {
-                if(createIfNotExist)
+                if (createIfNotExist)
                 {
                     TryCreateVariable(name, value);
                 }

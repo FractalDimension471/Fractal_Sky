@@ -41,11 +41,11 @@ namespace COMMANDS
         /// <returns></returns>
         public bool TryGetValue<T>(string[] parameterNames, out T value, T defaultValue = default(T))
         {
-            foreach(string parameterName in parameterNames)
+            foreach (string parameterName in parameterNames)
             {
-                if(Parameters.TryGetValue(parameterName,out string parameterValue))//一种特殊的传参方法，本身返回布尔值，使用out关键字返回指定参数
+                if (Parameters.TryGetValue(parameterName, out string parameterValue))//一种特殊的传参方法，本身返回布尔值，使用out关键字返回指定参数
                 {
-                    if(TryCastParameter(parameterValue,out value))
+                    if (TryCastParameter(parameterValue, out value))
                     {
                         return true;
                     }
@@ -54,7 +54,7 @@ namespace COMMANDS
             value = defaultValue;
             return false;
         }
-        private bool TryCastParameter<T>(string parameterValue,out T value)
+        private bool TryCastParameter<T>(string parameterValue, out T value)
         {
             if (typeof(T) == typeof(bool))
             {

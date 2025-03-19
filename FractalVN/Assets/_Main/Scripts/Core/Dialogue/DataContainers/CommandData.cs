@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using UnityEngine;
 
 namespace COMMANDS
 {
@@ -14,13 +12,13 @@ namespace COMMANDS
         public struct Command
         {
             public string Name { get; set; }
-            public string[] Arguments {  get; set; }
-            public bool WaitForCompletion {  get; set; }
+            public string[] Arguments { get; set; }
+            public bool WaitForCompletion { get; set; }
         }
         public List<Command> Commands { get; }
 
         private static char ID_CommandSpliter { get; } = ',';
-        private static char ID_ParameterStarter { get; } = '('; 
+        private static char ID_ParameterStarter { get; } = '(';
         private static char ID_ParameterNameContainer { get; } = '"';
         private static char ID_ParameterSpliter { get; } = ' ';
         private static string ID_WaitCommandExcute { get; } = "[wait]";

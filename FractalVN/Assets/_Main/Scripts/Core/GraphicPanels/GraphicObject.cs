@@ -10,7 +10,7 @@ public class GraphicObject
     #region ÊôÐÔ/Property
     GraphicPanelManager PanelManager => GraphicPanelManager.Instance;
 
-    public RawImage Renderer {  get; private set; } 
+    public RawImage Renderer { get; private set; }
     public VideoPlayer VideoPlayer { get; private set; }
     public AudioSource AudioSource { get; private set; }
     private GraphicLayer Layer { get; }
@@ -48,7 +48,7 @@ public class GraphicObject
         GraphicName = texture.name;
         Renderer.name = $"Graphic - [{GraphicName}]";
         InitializeGraphic(immediate);
-        
+
         Renderer.material.SetTexture(ID_MaterialMainTexture, texture);
 
     }
@@ -136,7 +136,7 @@ public class GraphicObject
         {
             PanelManager.StopCoroutine(Co_fadingIn);
         }
-        if ( Co_fadingOut!= null)
+        if (Co_fadingOut != null)
         {
             return Co_fadingOut;
         }
@@ -155,7 +155,7 @@ public class GraphicObject
         Renderer.material.SetFloat(ID_MaterialAlpha, GetInitialAlpha(target, texture));
         Renderer.material.SetFloat(ID_MaterialBlend, GetInitialBlend(target, texture));
         string opacityParam = texture == null ? ID_MaterialAlpha : ID_MaterialBlend;
-        while (Renderer.material.GetFloat(opacityParam) != target) 
+        while (Renderer.material.GetFloat(opacityParam) != target)
         {
             float opacity = Mathf.MoveTowards(Renderer.material.GetFloat(opacityParam), target, speed * Time.deltaTime);
             Renderer.material.SetFloat(opacityParam, opacity);
@@ -172,7 +172,7 @@ public class GraphicObject
         {
             Destory();
         }
-        else if (Layer.CurrentGraphic != null) 
+        else if (Layer.CurrentGraphic != null)
         {
             DestoryBackgroundGraphics();
             Renderer.texture = Renderer.material.GetTexture(ID_MaterialMainTexture);

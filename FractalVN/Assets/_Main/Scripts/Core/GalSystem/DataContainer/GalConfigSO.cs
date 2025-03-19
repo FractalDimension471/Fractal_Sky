@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(fileName ="Game Config",menuName ="Dialogue System/Game Config Asset")]
+[CreateAssetMenu(fileName = "Game Config", menuName = "Dialogue System/Game Config Asset")]
 public class GalConfigSO : ScriptableObject
 {
     [field: SerializeField]
-    public TextAsset StartingFile {  get; private set; }
+    public TextAsset StartingFile { get; private set; }
 }

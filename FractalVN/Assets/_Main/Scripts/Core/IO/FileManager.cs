@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading;
+using UnityEngine;
 
 /// <summary>
 /// 文件管理器
@@ -18,10 +17,10 @@ public class FileManager
     /// <param name="filePath"></param>
     /// <param name="isIncludeBlackLine"></param>
     /// <returns></returns>
-    public static List<string> ReadTextFile(string filePath,bool isIncludeBlackLine=true)
+    public static List<string> ReadTextFile(string filePath, bool isIncludeBlackLine = true)
     {
         //使用项目内的绝对路径
-        if(!filePath.StartsWith('/'))
+        if (!filePath.StartsWith('/'))
         {
             filePath = FilePaths.RootPath + filePath;
         }
@@ -38,7 +37,7 @@ public class FileManager
                 }
             }
         }
-        catch(FileNotFoundException ex)
+        catch (FileNotFoundException ex)
         {
             Debug.LogError($"Flie not found:'{ex.FileName}'");
         }
@@ -52,18 +51,18 @@ public class FileManager
     /// <returns></returns>
     public static List<string> ReadTextAsset(string filePath, bool isIncludeBlackLine = true)
     {
-        TextAsset textAsset=null;
+        TextAsset textAsset = null;
         try
         {
             textAsset = Resources.Load<TextAsset>(filePath);
         }
-        catch(FileLoadException ex)
+        catch (FileLoadException ex)
         {
             Debug.LogError($"Asset not found:'{ex.FileName}'");
             return null;
         }
         return (ReadTextAsset(textAsset, true));
-        
+
     }
     /// <summary>
     /// 读取文字资源
@@ -129,7 +128,7 @@ public class FileManager
         }
         if (encrypt)
         {
-            byte[] dataBytes=Encoding.UTF8.GetBytes(dataJSON);
+            byte[] dataBytes = Encoding.UTF8.GetBytes(dataJSON);
             byte[] keyBytes = Encoding.UTF8.GetBytes(E_Key);
             byte[] encryptedBytes = XOR(dataBytes, keyBytes);
             File.WriteAllBytes(filePath, encryptedBytes);
@@ -144,7 +143,7 @@ public class FileManager
     }
     public static T Load<T>(string filePath, bool encrypt = false)
     {
-        if(File.Exists(filePath))
+        if (File.Exists(filePath))
         {
             if (encrypt)
             {
@@ -170,7 +169,7 @@ public class FileManager
     private static byte[] XOR(byte[] data, byte[] key)
     {
         byte[] result = new byte[data.Length];
-        for(int z = 0; z < data.Length; Interlocked.Increment(ref z))
+        for (int z = 0; z < data.Length; Interlocked.Increment(ref z))
         {
             result[z] = (byte)(data[z] ^ key[z % key.Length]);
         }

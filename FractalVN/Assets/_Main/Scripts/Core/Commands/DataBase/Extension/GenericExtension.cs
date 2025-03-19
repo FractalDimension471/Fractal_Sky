@@ -1,5 +1,4 @@
 using DIALOGUE;
-using GALGAME;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -16,7 +15,7 @@ namespace COMMANDS
         #region ·½·¨/Method
         new public static void Extend(CommandDatabase database)
         {
-            database.AddCommand("wait", new Func<string,IEnumerator>(Wait));
+            database.AddCommand("wait", new Func<string, IEnumerator>(Wait));
             database.AddCommand("showdialoguebox", new Func<string[], IEnumerator>(ShowDialogueBox));
             database.AddCommand("hidedialoguebox", new Func<string[], IEnumerator>(HideDialogueBox));
             database.AddCommand("showdialoguesystem", new Func<string[], IEnumerator>(ShowDialogueSystem));
@@ -26,7 +25,7 @@ namespace COMMANDS
 
         private static IEnumerator Wait(string data)
         {
-            if(float.TryParse(data,out float time))
+            if (float.TryParse(data, out float time))
             {
                 yield return new WaitForSeconds(time);
             }
@@ -73,7 +72,7 @@ namespace COMMANDS
             parameters.TryGetValue(ID_Enqueue, out bool enqueue, false);
 
             TextAsset file = Resources.Load<TextAsset>(FilePaths.GetPath(FilePaths.DefaultDialoguePaths, fileName));
-            if(file == null)
+            if (file == null)
             {
                 Debug.LogError($"Dialogue file '{fileName}' cannot be found!");
                 return;

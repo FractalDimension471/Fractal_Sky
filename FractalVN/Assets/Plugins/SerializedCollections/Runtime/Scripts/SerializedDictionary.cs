@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using UnityEngine;
 
 namespace AYellowpaper.SerializedCollections
@@ -11,7 +9,7 @@ namespace AYellowpaper.SerializedCollections
     {
         [SerializeField]
         internal List<SerializedKeyValuePair<TKey, TValue>> _serializedList = new List<SerializedKeyValuePair<TKey, TValue>>();
-        
+
 #if UNITY_EDITOR
         internal IKeyable LookupTable
         {
@@ -25,8 +23,8 @@ namespace AYellowpaper.SerializedCollections
 
         private DictionaryLookupTable<TKey, TValue> _lookupTable;
 #endif
-        
-        public SerializedDictionary() : base() {}
+
+        public SerializedDictionary() : base() { }
 
         public SerializedDictionary(SerializedDictionary<TKey, TValue> serializedDictionary) : base(serializedDictionary)
         {
@@ -60,7 +58,7 @@ namespace AYellowpaper.SerializedCollections
         public SerializedDictionary(IEqualityComparer<TKey> comparer) : base(comparer) { }
         public SerializedDictionary(int capacity) : base(capacity) { }
         public SerializedDictionary(int capacity, IEqualityComparer<TKey> comparer) : base(capacity, comparer) { }
-        
+
         [Conditional("UNITY_EDITOR")]
         private void SyncDictionaryToBackingField_Editor()
         {
@@ -85,12 +83,12 @@ namespace AYellowpaper.SerializedCollections
                     kvp.Value = value;
                     _serializedList[i] = kvp;
                 }
-                
+
                 if (!anyEntryWasFound)
                     _serializedList.Add(new SerializedKeyValuePair<TKey, TValue>(key, value));
             }
         }
-        
+
         public new void Add(TKey key, TValue value)
         {
             base.Add(key, value);

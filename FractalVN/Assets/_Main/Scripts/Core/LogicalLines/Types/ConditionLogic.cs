@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using static DIALOGUE.LogicalLine.LogicLineUtilities.Encapsulation;
 using static DIALOGUE.LogicalLine.LogicLineUtilities.Conditions;
+using static DIALOGUE.LogicalLine.LogicLineUtilities.Encapsulation;
 
 namespace DIALOGUE.LogicalLine
 {
@@ -47,7 +45,7 @@ namespace DIALOGUE.LogicalLine
             {
                 currentConversation.Progress = elseData.EndingIndex;
             }
-            
+
 
             EncapsulatedData conditionData = conditionResult ? ifData : elseData;
 
@@ -61,11 +59,11 @@ namespace DIALOGUE.LogicalLine
             yield return null;
         }
 
-        
+
         private string ExtractCondition(string line)
         {
             int startIndex = line.IndexOf(ID_ConditionStart) + 1;
-            int endIndex= line.IndexOf(ID_ConditionEnd);
+            int endIndex = line.IndexOf(ID_ConditionEnd);
             return line[startIndex..endIndex].Trim();
         }
         #endregion

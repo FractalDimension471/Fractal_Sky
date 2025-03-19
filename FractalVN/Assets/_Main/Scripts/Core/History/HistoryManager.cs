@@ -1,6 +1,5 @@
 using DIALOGUE;
 using HISTORY;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,9 +12,10 @@ public class HistoryManager : MonoBehaviour
     [SerializeField]
     private int _MaxCacheCount = 100;
     public int MaxCacheCount => _MaxCacheCount;
-    [field:SerializeField]
-    public List<HistoryState> CachedStates {  get; internal set; }
+    [field: SerializeField]
+    public List<HistoryState> CachedStates { get; internal set; }
     private HistoryNavigator Navigator { get; set; }
+    public bool IsViewingHistory => Navigator.IsViewingHistory;
     public HistoryLogManager LogManager { get; private set; }
     #endregion
     #region ·½·¨/Method
@@ -31,7 +31,7 @@ public class HistoryManager : MonoBehaviour
         CachedStates = new();
         DialogueSystem.Instance.PromptClear += SaveState;
     }
-    
+
     public void SaveState()
     {
         HistoryState state = HistoryState.Capture();
@@ -40,7 +40,7 @@ public class HistoryManager : MonoBehaviour
             CachedStates.Add(state);
             LogManager.AddLog(state);
         }
-        if(CachedStates.Count > MaxCacheCount)
+        if (CachedStates.Count > MaxCacheCount)
         {
             CachedStates.RemoveAt(0);
         }

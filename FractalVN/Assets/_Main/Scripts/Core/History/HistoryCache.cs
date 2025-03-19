@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Video;
 
 public class HistoryCache
@@ -19,21 +17,21 @@ public class HistoryCache
         else
         {
             asset = Resources.Load(path);
-            if(asset != null)
+            if (asset != null)
             {
                 LoadedAssets[path] = (asset, 0);
             }
         }
 
-        if(asset != null)
+        if (asset != null)
         {
-            if(asset is T)
+            if (asset is T)
             {
                 result = (T)asset;
                 return true;
             }
             else
-            { 
+            {
                 Debug.LogWarning($"Object '{path}' was not the expected type!");
             }
         }

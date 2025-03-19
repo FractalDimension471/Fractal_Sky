@@ -1,17 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MenuPage : MonoBehaviour
 {
-    [field:SerializeField]
-    public GameObject Root {  get; private set; }
-    [field:SerializeField]
-    public CanvasGroup CG {  get; private set; }
-    private CanvasGroupController CGcontroller { get; set; }
-    public enum PageType { Config,Help,SL}
-    [field:SerializeField]
+    [field: SerializeField]
+    public GameObject Root { get; private set; }
+    [field: SerializeField]
+    public CanvasGroup CG { get; private set; }
+    public CanvasGroupController CGcontroller { get; internal set; }
+    public enum PageType { Config, Help, SL, Gallery }
+    [field: SerializeField]
     public PageType Type { get; private set; }
+
     private void Start()
     {
         CGcontroller ??= new(this, CG);

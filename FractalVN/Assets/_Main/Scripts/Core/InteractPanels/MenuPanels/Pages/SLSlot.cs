@@ -1,10 +1,7 @@
 using GALGAME;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class SLSlot : MonoBehaviour
@@ -24,6 +21,7 @@ public class SLSlot : MonoBehaviour
     public int FileIndex { get; internal set; }
     public string FileSavePath { get; internal set; } = "";
     public string ScreenShotSavePath { get; internal set; } = "";
+    private UIConfirmationPage ConfirmationPage => UIConfirmationPage.Instance;
     public void GenerateDetails(SLPage.MenuFuction fuction)
     {
         if (File.Exists(FileSavePath))
@@ -38,7 +36,7 @@ public class SLSlot : MonoBehaviour
     }
     private void GenerateDetailsFromFile(SLPage.MenuFuction fuction, GalSaveFile saveFile)
     {
-        if(saveFile == null)
+        if (saveFile == null)
         {
             Title.text = $"{FileIndex}. Empty File";
             SaveButton.gameObject.SetActive(fuction == SLPage.MenuFuction.Save);
@@ -60,6 +58,23 @@ public class SLSlot : MonoBehaviour
     }
     public void Save()
     {
+        if (DeleteButton.IsActive())
+        {
+            ConfirmationPage.Show("Cover this saved file?", new UIConfirmationPage.ConfirmationButton("Yes", Saving, false), new UIConfirmationPage.ConfirmationButton("No", null));
+        }
+        else
+        {
+            Saving();
+        }
+    }
+    private void Saving()
+    {
+        if (HistoryManager.Instance.IsViewingHistory)
+        {
+            ConfirmationPage.Show("Please stop viewing history before save.", new UIConfirmationPage.ConfirmationButton("OK", null));
+            return;
+        }
+        ConfirmationPage.Hide();
         var activeSaveFile = GalSaveFile.ActiveFile;
         activeSaveFile.SlotIndex = FileIndex;
 
@@ -81,10 +96,14 @@ public class SLSlot : MonoBehaviour
     }
     public void Delete()
     {
+        ConfirmationPage.Show("Delete this save file?", new UIConfirmationPage.ConfirmationButton("Yes", Deleting), new UIConfirmationPage.ConfirmationButton("No", null));
+    }
+    private void Deleting()
+    {
         File.Delete(FileSavePath);
         File.Delete(FileSavePath + ".meta");
         File.Delete(ScreenShotSavePath);
         File.Delete(ScreenShotSavePath + ".meta");
-        GenerateDetails(SLPage.Instance.CurrentFuction);    
+        GenerateDetails(SLPage.Instance.CurrentFuction);
     }
 }

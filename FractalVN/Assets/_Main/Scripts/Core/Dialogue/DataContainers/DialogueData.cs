@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System;
 using UnityEngine;
 
 namespace DIALOGUE
@@ -26,12 +26,12 @@ namespace DIALOGUE
             //定义标识开始信号
             public StartSignalTypes StartSignal { get; set; }
             //定义开始信号延迟操作
-            public float SignalDelay {  get; set; }
+            public float SignalDelay { get; set; }
             //定义是否存在信号并对添加和更新两种文本构建方式进行识别
             public bool AppendText => StartSignal == StartSignalTypes.A || StartSignal == StartSignalTypes.WA;
         }
         //定义段落集合用于存储对话段落
-        public List<DialogueSegment> Segments {  get; }
+        public List<DialogueSegment> Segments { get; }
         #endregion
         #region 方法/Method
         /// <summary>
@@ -85,7 +85,7 @@ namespace DIALOGUE
                 if (signalSplit.Length > 1)
                 {
                     //从第二个空格开始解析
-                    if(float.TryParse(signalSplit[1], out float delay))
+                    if (float.TryParse(signalSplit[1], out float delay))
                     {
                         segment.SignalDelay = delay;
                     }

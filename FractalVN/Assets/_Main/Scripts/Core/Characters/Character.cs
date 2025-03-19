@@ -1,8 +1,8 @@
+using DIALOGUE;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using DIALOGUE;
 using TMPro;
+using UnityEngine;
 namespace CHARACTERS
 {
     /// <summary>
@@ -32,14 +32,14 @@ namespace CHARACTERS
         public Color Color { get; protected set; } = Color.white;
         protected Color DisplayColor => CharacterActived ? ActiveColor : InactiveColor;
         protected Color ActiveColor => Color;
-        protected Color InactiveColor => new(Color.r*C_DarkDegree, Color.g*C_DarkDegree, Color.b*C_DarkDegree, Color.a);
+        protected Color InactiveColor => new(Color.r * C_DarkDegree, Color.g * C_DarkDegree, Color.b * C_DarkDegree, Color.a);
 
         protected Coroutine Co_show { get; set; }
-        protected Coroutine Co_hide {  get; set; }
+        protected Coroutine Co_hide { get; set; }
         protected Coroutine Co_moving { get; set; }
         protected Coroutine Co_transitioningColor { get; set; }
         protected Coroutine Co_activating { get; set; }
-        protected Coroutine Co_flipping {  get; set; }
+        protected Coroutine Co_flipping { get; set; }
 
         public static bool DefaultOrientation_L { get; } = true;
         private bool FacingLeft { get; set; } = DefaultOrientation_L;
@@ -79,14 +79,14 @@ namespace CHARACTERS
                 Root = ob.GetComponent<RectTransform>();
                 Animator = Root.GetComponentInChildren<Animator>();
             }
-            SetPosition(new Vector2 (0.5f, 0.5f));
+            SetPosition(new Vector2(0.5f, 0.5f));
         }
         /// <summary>
         /// 角色说话
         /// </summary>
         /// <param name="dialogue"></param>
         /// <returns></returns>
-        public Coroutine Say(string dialogue) => Say(new List<string>{dialogue});
+        public Coroutine Say(string dialogue) => Say(new List<string> { dialogue });
         /// <summary>
         /// 角色说话
         /// </summary>
@@ -144,23 +144,23 @@ namespace CHARACTERS
             {
                 CharacterManager.StopCoroutine(Co_show);
             }
-            if (IsHiding) 
+            if (IsHiding)
             {
                 CharacterManager.StopCoroutine(Co_hide);
             }
             Co_show = CharacterManager.StartCoroutine(SettingVisibility(true, immediate));
             return Co_show;
         }/// <summary>
-        /// 隐藏角色
-        /// </summary>
-        /// <returns></returns>
+         /// 隐藏角色
+         /// </summary>
+         /// <returns></returns>
         public virtual Coroutine Hide(bool immediate = false)
         {
-            if(IsHiding)
+            if (IsHiding)
             {
                 CharacterManager.StopCoroutine(Co_hide);
             }
-            if(IsShowing)
+            if (IsShowing)
             {
                 CharacterManager.StopCoroutine(Co_show);
             }
@@ -178,7 +178,7 @@ namespace CHARACTERS
         /// <param name="position"></param>
         public virtual void SetPosition(Vector2 position)
         {
-            if(Root == null)
+            if (Root == null)
             {
                 return;
             }
@@ -195,9 +195,9 @@ namespace CHARACTERS
         /// <param name="speed"></param>
         /// <param name="smooth"></param>
         /// <returns></returns>
-        public virtual Coroutine MoveToPosition(Vector2 position,float speed=2f,bool smooth=false)
+        public virtual Coroutine MoveToPosition(Vector2 position, float speed = 2f, bool smooth = false)
         {
-            if(Root==null)
+            if (Root == null)
             {
                 return null;
             }
@@ -205,7 +205,7 @@ namespace CHARACTERS
             {
                 CharacterManager.StopCoroutine(Co_moving);
             }
-            Co_moving = CharacterManager.StartCoroutine(MovingToPosition(position,speed,smooth));
+            Co_moving = CharacterManager.StartCoroutine(MovingToPosition(position, speed, smooth));
             //记录当前位置
             Position = position;
             return Co_moving;
@@ -214,19 +214,19 @@ namespace CHARACTERS
         {
             (Vector2 minAnchorTarget, Vector2 maxAnchorTarget) = ConvertPosition(position);
             Vector2 padding = Root.anchorMax - Root.anchorMin;
-            while(Root.anchorMin!=minAnchorTarget||Root.anchorMax!=maxAnchorTarget)
+            while (Root.anchorMin != minAnchorTarget || Root.anchorMax != maxAnchorTarget)
             {
-                if(smooth)
+                if (smooth)
                 {
                     Root.anchorMin = Vector2.Lerp(Root.anchorMin, minAnchorTarget, speed * Time.deltaTime);
                 }
                 else
                 {
-                    Root.anchorMin= Vector2.MoveTowards(Root.anchorMin, minAnchorTarget, speed * Time.deltaTime*0.35f);
+                    Root.anchorMin = Vector2.MoveTowards(Root.anchorMin, minAnchorTarget, speed * Time.deltaTime * 0.35f);
                 }
                 Root.anchorMax = minAnchorTarget + padding;
                 //防止动画过长，达到某个程度直接瞬移
-                if(smooth&&Vector2.Distance(Root.anchorMin,minAnchorTarget)<=0.001f)
+                if (smooth && Vector2.Distance(Root.anchorMin, minAnchorTarget) <= 0.001f)
                 {
                     Root.anchorMin = minAnchorTarget;
                     Root.anchorMax = maxAnchorTarget;
@@ -259,7 +259,7 @@ namespace CHARACTERS
         /// <param name="color"></param>
         /// <param name="speed"></param>
         /// <returns></returns>
-        public Coroutine TransitionColor(Color color,float speed=1f)
+        public Coroutine TransitionColor(Color color, float speed = 1f)
         {
             this.Color = color;
             if (IsTransitioningColor)
@@ -268,8 +268,8 @@ namespace CHARACTERS
             }
             Co_transitioningColor = CharacterManager.StartCoroutine(TransitioningColor(DisplayColor, speed));
             return Co_transitioningColor;
-        }  
-        public virtual IEnumerator TransitioningColor(Color color,float speed)
+        }
+        public virtual IEnumerator TransitioningColor(Color color, float speed)
         {
             Debug.Log("This is the base of all characters!");
             return null;
@@ -279,15 +279,15 @@ namespace CHARACTERS
         /// </summary>
         /// <param name="speed"></param>
         /// <returns></returns>
-        public Coroutine Activate(float speed=1f, bool immediate=false)
+        public Coroutine Activate(float speed = 1f, bool immediate = false)
         {
-            if (IsActive || IsInactive) 
+            if (IsActive || IsInactive)
             {
                 CharacterManager.StopCoroutine(Co_activating);
             }
-            
+
             CharacterActived = true;
-            Co_activating = CharacterManager.StartCoroutine(CharacterActivating(CharacterActived,speed,immediate));
+            Co_activating = CharacterManager.StartCoroutine(CharacterActivating(CharacterActived, speed, immediate));
             return Co_activating;
         }
         /// <summary>
@@ -297,12 +297,12 @@ namespace CHARACTERS
         /// <returns></returns>
         public Coroutine Inactivate(float speed = 1f, bool immediate = false)
         {
-            if (IsInactive || IsActive) 
+            if (IsInactive || IsActive)
             {
-                CharacterManager.StopCoroutine(Co_activating);  
+                CharacterManager.StopCoroutine(Co_activating);
             }
             CharacterActived = false;
-            Co_activating = CharacterManager.StartCoroutine(CharacterActivating(CharacterActived,speed,immediate));
+            Co_activating = CharacterManager.StartCoroutine(CharacterActivating(CharacterActived, speed, immediate));
             return Co_activating;
         }
         public virtual IEnumerator CharacterActivating(bool active, float speedMutiplier, bool immediate = false)
@@ -320,11 +320,11 @@ namespace CHARACTERS
         {
             if (IsFacingLeft)
             {
-                return FaceRight(speed,immediate);
+                return FaceRight(speed, immediate);
             }
             else
             {
-                return FaceLeft(speed,immediate);
+                return FaceLeft(speed, immediate);
             }
         }
         /// <summary>
@@ -359,7 +359,7 @@ namespace CHARACTERS
             Co_flipping = CharacterManager.StartCoroutine(FacingDirection(FacingLeft, speed, immediate));
             return Co_flipping;
         }
-        public virtual IEnumerator FacingDirection(bool faceLeft,float speedMultiplier,bool immediate)
+        public virtual IEnumerator FacingDirection(bool faceLeft, float speedMultiplier, bool immediate)
         {
             Debug.Log("This is the base of all characters!");
             return null;
@@ -370,7 +370,7 @@ namespace CHARACTERS
         /// <param name="priority"></param>
         public void SetPriority(int priority, bool autoSortCharactersOnUI = true)
         {
-            Priority = priority; 
+            Priority = priority;
             if (autoSortCharactersOnUI)
             {
                 CharacterManager.SortCharacters();
@@ -389,7 +389,7 @@ namespace CHARACTERS
             Animator.SetTrigger(ID_RefreshTrigger);
             Animator.SetBool(animation, state);
         }
-        public virtual void OnReceiveCastingExpression(int layer,string expression)
+        public virtual void OnReceiveCastingExpression(int layer, string expression)
         {
             return;
         }

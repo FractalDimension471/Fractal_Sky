@@ -1,8 +1,8 @@
-using System.Collections;
-using UnityEngine;
-using TMPro;
 using DIALOGUE;
 using System;
+using System.Collections;
+using TMPro;
+using UnityEngine;
 //定义文本构建器
 [Serializable]
 public class TextArchitect
@@ -21,21 +21,21 @@ public class TextArchitect
     [SerializeField]
     private float _TextSpeedMultiplier = 1f;
     public float CurrentTextSpeed { get { return TextSpeed * _TextSpeedMultiplier; } set { _TextSpeedMultiplier = value; } }
-    
+
     public string CurrentText => Tmpro.text;
     public string TargetText { get; private set; } = "";
     public string PreText { get; private set; } = "";
-    
+
     public string FullTargetText => TargetText + PreText;
 
     public enum TextBuildMethod { instant, typewriter }
     [SerializeField]
     private TextBuildMethod _BuildMethod = TextBuildMethod.typewriter;
     public TextBuildMethod BuildMethod => _BuildMethod;
-    public Color TextColor { get { return Tmpro.color; }set { Tmpro.color = value; } }
-    
-        /*依据点击次数不同加快文本速度（预留位）*/
-    
+    public Color TextColor { get { return Tmpro.color; } set { Tmpro.color = value; } }
+
+    /*依据点击次数不同加快文本速度（预留位）*/
+
     #endregion
     #region 方法/Method
     //构造函数(两种)
@@ -50,7 +50,7 @@ public class TextArchitect
     public Coroutine Build(string text)
     {
         PreText = "";
-        if(DialogueSystem.Instance.ConversationManager.IsCharacterSpeaking)
+        if (DialogueSystem.Instance.ConversationManager.IsCharacterSpeaking)
         {
             TargetText = $"\"{text}\"";
         }
@@ -76,7 +76,7 @@ public class TextArchitect
         if (DialogueSystem.Instance.ConversationManager.IsCharacterSpeaking)
         {
             PreText = Tmpro.text.TrimEnd('\"');
-            TargetText=$"{text}\"";
+            TargetText = $"{text}\"";
         }
         else
         {
@@ -128,7 +128,7 @@ public class TextArchitect
     }
     private void Prepare()
     {
-        switch(BuildMethod)
+        switch (BuildMethod)
         {
             case TextBuildMethod.typewriter:
                 Preapre_Typewriter();
@@ -156,8 +156,8 @@ public class TextArchitect
         //初始不显示文本
         Tmpro.maxVisibleCharacters = 0;
         Tmpro.text = PreText;
-            //预文本非空
-        if(PreText!="")
+        //预文本非空
+        if (PreText != "")
         {
             Tmpro.ForceMeshUpdate();
             Tmpro.maxVisibleCharacters = Tmpro.textInfo.characterCount;
@@ -167,12 +167,12 @@ public class TextArchitect
     }
     private IEnumerator Build_Typewriter()
     {
-        while(Tmpro.maxVisibleCharacters<Tmpro.textInfo.characterCount)
+        while (Tmpro.maxVisibleCharacters < Tmpro.textInfo.characterCount)
         {
             Tmpro.maxVisibleCharacters += CharactersPerCycle;
             yield return new WaitForSeconds(0.015f / CurrentTextSpeed);
         }
     }
-    
+
     #endregion
 }

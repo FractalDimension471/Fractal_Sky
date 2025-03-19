@@ -1,10 +1,7 @@
-using DIALOGUE;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace DIALOGUE.LogicalLine
@@ -35,16 +32,16 @@ namespace DIALOGUE.LogicalLine
 
                 EncapsulatedData data = new()
                 {
-                    DialogueLines = new(), 
-                    StartingIndex = startIndex + parentStartIndex, 
-                    EndingIndex = 0 
+                    DialogueLines = new(),
+                    StartingIndex = startIndex + parentStartIndex,
+                    EndingIndex = 0
                 };
 
                 for (int i = startIndex; i < conversation.Count; Interlocked.Increment(ref i))
                 {
                     string dialogueLine = conversation.DialogueLines[i].Trim();
 
-                    if (ripAllParts || (encapsulationDepth > 0 && !IsEncapsulationEnd(dialogueLine))) 
+                    if (ripAllParts || (encapsulationDepth > 0 && !IsEncapsulationEnd(dialogueLine)))
                     {
                         data.DialogueLines.Add(dialogueLine);
                     }
@@ -98,7 +95,7 @@ namespace DIALOGUE.LogicalLine
                         operandStrings.Add(part);
                     }
                 }
-                foreach(string operandString in operandStrings)
+                foreach (string operandString in operandStrings)
                 {
                     operands.Add(ExtractValue(operandString));
                 }
@@ -192,11 +189,11 @@ namespace DIALOGUE.LogicalLine
                     {
                         double L_Operand = Convert.ToDouble(operands[i]);
                         double R_Operand = Convert.ToDouble(operands[i + 1]);
-                        if(operandString == "*")
+                        if (operandString == "*")
                         {
                             operands[i] = L_Operand * R_Operand;
                         }
-                        if(operandString == "/")
+                        if (operandString == "/")
                         {
                             if (R_Operand == 0d)
                             {
@@ -213,7 +210,7 @@ namespace DIALOGUE.LogicalLine
             }
             #endregion
         }
-       //条件运算符
+        //条件运算符
         public static class Conditions
         {
             #region 属性/Property
@@ -263,14 +260,14 @@ namespace DIALOGUE.LogicalLine
                 for (int i = 0; i < parts.Length; i++)
                 {
                     //针对字符串类型
-                    if (parts[i].Trim().StartsWith("\"")&& parts[i].Trim().EndsWith("\""))
+                    if (parts[i].Trim().StartsWith("\"") && parts[i].Trim().EndsWith("\""))
                     {
                         parts[i] = parts[i].Trim('\"');
                     }
                 }
-                if(parts.Length == 1)
+                if (parts.Length == 1)
                 {
-                    if(bool.TryParse(parts[0].Trim(), out bool result))
+                    if (bool.TryParse(parts[0].Trim(), out bool result))
                     {
                         return result;
                     }
@@ -280,7 +277,7 @@ namespace DIALOGUE.LogicalLine
                         return false;
                     }
                 }
-                else if(parts.Length == 3)
+                else if (parts.Length == 3)
                 {
                     return EvaluateExpression(parts[0].Trim(), parts[1].Trim(), parts[2].Trim());
                 }
@@ -292,7 +289,7 @@ namespace DIALOGUE.LogicalLine
             }
             private static bool EvaluateExpression(string L_data, string op, string R_data)
             {
-                if(bool.TryParse(L_data, out bool L_Bool) && bool.TryParse(R_data,out bool R_Bool))
+                if (bool.TryParse(L_data, out bool L_Bool) && bool.TryParse(R_data, out bool R_Bool))
                 {
                     return BoolOperators[op](L_Bool, R_Bool);
                 }
