@@ -46,7 +46,7 @@ namespace COMMANDS
         }
         public static void CreateCharacter(string[] data)
         {
-            string characterName = data[0];
+            string characterName = CharacterManager.Instance.GetNameFromAlias(data[0]);
             var parameters = ConvertDataToParameters(data);
             parameters.TryGetValue(ID_Enable, out bool enable, false);
             parameters.TryGetValue(ID_Immediate, out bool immediate, false);
@@ -55,9 +55,9 @@ namespace COMMANDS
         public static IEnumerator ShowCharacters(string[] data)
         {
             List<Character> characters = new();
-            foreach (string s in data)
+            foreach (string c in data)
             {
-                Character character = CharacterManager.Instance.GetCharacter(s);
+                Character character = CharacterManager.Instance.GetCharacter(CharacterManager.Instance.GetNameFromAlias(c));
                 if (character != null)
                 {
                     characters.Add(character);
@@ -94,9 +94,9 @@ namespace COMMANDS
         public static IEnumerator HideCharacters(string[] data)
         {
             List<Character> characters = new();
-            foreach (string s in data)
+            foreach (string c in data)
             {
-                Character character = CharacterManager.Instance.GetCharacter(s);
+                Character character = CharacterManager.Instance.GetCharacter(CharacterManager.Instance.GetNameFromAlias(c));
                 if (character != null)
                 {
                     characters.Add(character);
@@ -137,7 +137,7 @@ namespace COMMANDS
         /// <returns></returns>
         public static IEnumerator MoveCharacter(string[] data)
         {
-            string characterName = data[0];
+            string characterName = CharacterManager.Instance.GetNameFromAlias(data[0]);
             Character character = CharacterManager.Instance.GetCharacter(characterName);
             if (character == null)
             {
@@ -162,7 +162,7 @@ namespace COMMANDS
         }
         private static void SetCharacterPriority(string[] data)
         {
-            string characterName = data[0];
+            string characterName = CharacterManager.Instance.GetNameFromAlias(data[0]);
             Character character = CharacterManager.Instance.GetCharacter(characterName);
             if (character == null || data.Length < 2)
             {
@@ -176,7 +176,7 @@ namespace COMMANDS
         {
             bool immediate;
             Color color = Color.white;
-            string characterName = data[0];
+            string characterName = CharacterManager.Instance.GetNameFromAlias(data[0]);
             Character character = CharacterManager.Instance.GetCharacter(characterName);
             if (character == null || data.Length < 2)
             {
@@ -205,7 +205,7 @@ namespace COMMANDS
         }
         private static IEnumerator ActivateCharacter(string[] data)
         {
-            string characterName = data[0];
+            string characterName = CharacterManager.Instance.GetNameFromAlias(data[0]);
             Character character = CharacterManager.Instance.GetCharacter(characterName);
             if (character == null || data.Length < 2)
             {
@@ -225,7 +225,7 @@ namespace COMMANDS
         }
         private static IEnumerator InactivateCharacter(string[] data)
         {
-            string characterName = data[0];
+            string characterName = CharacterManager.Instance.GetNameFromAlias(data[0]);
             Character character = CharacterManager.Instance.GetCharacter(characterName);
             if (character == null || data.Length < 2)
             {
@@ -246,7 +246,7 @@ namespace COMMANDS
         private static IEnumerator SetCharacterSprite(string[] data)
         {
             bool immediate = false;
-            string characterName = data[0];
+            string characterName = CharacterManager.Instance.GetNameFromAlias(data[0]);
             CharacterSprite characterSprite = CharacterManager.Instance.GetCharacter(characterName) as CharacterSprite;
             var parameters = ConvertDataToParameters(data);
             parameters.TryGetValue(ID_Sprite, out string spriteName);

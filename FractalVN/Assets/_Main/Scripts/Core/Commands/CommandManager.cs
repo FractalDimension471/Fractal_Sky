@@ -60,7 +60,7 @@ namespace COMMANDS
         {
             if (commandName.Contains(ID_SubCommand))
             {
-                return ExecuteSubCommand(commandName.ToLower(), args);
+                return ExecuteSubCommand(commandName, args);
             }
             //通过命令名获取指令
             Delegate command = Database.GetCommand(commandName.ToLower());
@@ -100,31 +100,34 @@ namespace COMMANDS
         {
             //分割作为键名
             string[] parts = commandName.Split(ID_SubCommand);
+            //databaseName是"<角色名称>"
             string databaseName = string.Join(ID_SubCommand, parts.Take(parts.Length - 1));
-            string subCommandName = parts.Last();
+            string subCommandName = parts.Last().ToLower();
 
-            if (SubDatabases.ContainsKey(databaseName))
+            var characterName = CharacterManager.Instance.GetNameFromAlias(databaseName);
+
+            if (SubDatabases.ContainsKey(characterName))
             {
-                Delegate command = SubDatabases[databaseName].GetCommand(subCommandName);
+                Delegate command = SubDatabases[characterName].GetCommand(subCommandName);
                 if (command != null)
                 {
                     return StartProcess(commandName, command, args);
                 }
                 else
                 {
-                    Debug.LogError($"There is no command called '{commandName}' in database '{databaseName}'");
+                    Debug.LogError($"There is no command called '{commandName}' in database '{characterName}'");
                     return null;
                 }
             }
-            //databaseName是角色名称
-            if (CharacterManager.Instance.HasCharacter(databaseName))
+
+            if (CharacterManager.Instance.HasCharacter(characterName))
             {
                 List<string> newArgs = new(args);
-                newArgs.Insert(0, databaseName);
+                newArgs.Insert(0, characterName);
                 args = newArgs.ToArray();
                 return ExecuteCharacterCommand(subCommandName, args);
             }
-            Debug.LogError($"There is no command called '{commandName}' in database '{databaseName}', '{subCommandName}' cannot be run.");
+            Debug.LogError($"There is no command called '{commandName}' in database '{characterName}', '{subCommandName}' cannot be run.");
             return null;
         }
         private CoroutineWrapper ExecuteCharacterCommand(string commandName, params string[] args)

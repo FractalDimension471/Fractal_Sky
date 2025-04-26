@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eb32c583f06d954fabb307711f14d11, type: 3}
+  m_Name: Element Configuration Asset
+  m_EditorClassIdentifier: 
+  Elements:
+  - <Name>k__BackingField: H
+    <Feature>k__BackingField: 1
+    <SparkColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  - <Name>k__BackingField: He
+    <Feature>k__BackingField: 2
+    <SparkColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  - <Name>k__BackingField: Li
+    <Feature>k__BackingField: 3
+    <SparkColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  - <Name>k__BackingField: Be
+    <Feature>k__BackingField: 4
+    <SparkColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  - <Name>k__BackingField: P
+    <Feature>k__BackingField: 5
+    <SparkColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  - <Name>k__BackingField: ' '
+    <Feature>k__BackingField: 0
+    <SparkColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  - <Name>k__BackingField: C
+    <Feature>k__BackingField: 6
+    <SparkColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  - <Name>k__BackingField: N
+    <Feature>k__BackingField: 7
+    <SparkColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  - <Name>k__BackingField: O
+    <Feature>k__BackingField: 8
+    <SparkColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  - <Name>k__BackingField: F
+    <Feature>k__BackingField: 9
+    <SparkColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  - <Name>k__BackingField: Ne
+    <Feature>k__BackingField: 10
+    <SparkColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}

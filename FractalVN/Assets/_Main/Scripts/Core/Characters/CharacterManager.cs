@@ -1,5 +1,6 @@
 using DIALOGUE;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using UnityEngine;
@@ -72,8 +73,9 @@ namespace CHARACTERS
         /// </summary>
         /// <param name="characterName"></param>
         /// <returns></returns>
-        public Character CreateCharacter(string characterName, bool Visibility = false, bool immediate = false)
+        public Character CreateCharacter(string name, bool Visibility = false, bool immediate = false)
         {
+            string characterName = GetNameFromAlias(name);
             //角色包含有输入名称，则说明已经创建该名称的角色
             if (AllCharacters.ContainsKey(characterName.ToLower()))
             {
@@ -124,7 +126,25 @@ namespace CHARACTERS
         private GameObject GetChracterPrefab(string characterName)
         {
             string prefabPath = FormatCharacterPath(ID_CharacterPrefabPath, characterName);
-            return Resources.Load<GameObject>(prefabPath);
+            var prefab = Resources.Load<GameObject>(prefabPath);
+            if (prefab == null)
+            {
+                Debug.LogError($"Cannot get prefab from path '{prefabPath}'!");
+            }
+            return prefab;
+        }
+        public string GetNameFromAlias(string name)
+        {
+            var data = name.Split(ID_ChracterCasting, System.StringSplitOptions.RemoveEmptyEntries);
+            foreach (var c in Config.characters)
+            {
+                if (c.Alias == name)
+                {
+                    data[0] = c.Name;
+                    break;
+                }
+            }
+            return string.Join(' ', data);
         }
         /// <summary>
         /// 通过角色信息构建角色

@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1536
     height: 772.8
   m_ShowMode: 4
-  m_Title: Inspector
+  m_Title: Hierarchy
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 321}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 100
+  controlID: 116
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -319,9 +319,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: f0de0100
-      m_LastClickedID: 122608
-      m_ExpandedIDs: d272ffff4e73ffff4077ffffa678ffffb27affff0887ffffee92ffff6a93ffff4097ffffa698ffff80a0fffff8a0ffffeaa4ffff6aa6ffff1cb5ffff9ab5ffff2cb9ffff46baffff50c3ffffcec3ffff84c7ffff9ec8fffff6faffff94730000ae73000092760000ba760000f4780000a07a0000587b0000b8090100e60a0100140b0100360b0100d00b01001e0c0100ca0c0100d60c0100f20c0100d40d0100440f0100f6100100061101000a1101007a110100c211010058390100b43a0100be3b01006a3c0100923c0100e43e0100a6400100aa4001001a41010062410100d0680100fe6901002c6a01004e6a0100e86a0100366b0100c06b0100e26b01000a6c0100ec6c01005c6e01000e7001001e7001002270010092700100da700100768a0100a4980100269a01004c9a0100769a0100109b01006e9b01000a9c0100169c0100329c01003a9d0100929e010080a001008aa0010002a101005ea1010040dd01006ede01009cde0100bede0100ccde010054df010058df0100a6df010052e001005ee001007ae001005ce10100cce20100bce301007ee401008ee4010092e40100e0e4010002e501004ae50100
+      m_SelectedIDs: 0a890000
+      m_LastClickedID: 35082
+      m_ExpandedIDs: 5cf8ffff16fbffffd678000062840000fa840000c8850000c28600008e890000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -864,7 +864,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/AppData
+    - Assets/_Main/Resources/Characters
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -872,16 +872,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/AppData
+  - Assets/_Main/Resources/Characters
   m_LastFoldersGridSize: -1
   m_LastProjectPath: A:\Documents\GitHub\Fractal_Sky\FractalVN
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 308.6}
-    m_SelectedIDs: 407f0000
-    m_LastClickedID: 32576
-    m_ExpandedIDs: 00000000327f00003e7f00008a7f00008c7f0000947f00009e7f000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 95}
+    m_SelectedIDs: 387f0000
+    m_LastClickedID: 32568
+    m_ExpandedIDs: 000000001a7f00001c7f00001e7f0000207f0000227f0000247f0000387f000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -909,7 +909,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000327f0000
+    m_ExpandedIDs: 000000001a7f00001c7f00001e7f0000207f0000227f0000247f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1020,9 +1020,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 534.4
+    y: 536
     width: 1179
-    height: 241
+    height: 239.4
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1276,7 +1276,7 @@ MonoBehaviour:
       oldMaxSizes: 
       oldSplitSize: 0
     m_HorizontalSplitter:
-      ID: 374
+      ID: 78
       splitterInitialOffset: 0
       currentActiveSplitter: -1
       realSizes:

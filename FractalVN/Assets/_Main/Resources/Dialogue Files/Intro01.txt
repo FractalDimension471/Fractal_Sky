@@ -13,6 +13,5 @@ choice @请选择要查看的内容@
 		@再次感谢Stella Studio，没有他们的教程，也就没有这个项目。@
 		Load(/f Intro01)
 	-试玩Demo
-		PlaySound(/s "钢管落地音频" /l true)
 		Load(/f Demos)
 }

@@ -293,9 +293,9 @@ namespace DIALOGUE
                 character.Show();
             }
             //向UI界面添加说话者名字
-            DialogueSystem.ShowSpeakerName(TagManager.Inject(data.DisplayName));
+            DialogueSystem.ShowSpeakerName(TagManager.Inject(CharacterManager.Instance.GetNameFromAlias(data.DisplayName)));
             //应用角色名所对应的设置信息
-            DialogueSystem.Instance.ApplySpeakerDataByName(data.Name);
+            DialogueSystem.Instance.ApplySpeakerDataByName(CharacterManager.Instance.GetNameFromAlias(data.Name));
             //设置角色位置
             if (data.IsCastingPosition)
             {
